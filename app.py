@@ -16,9 +16,11 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 if __name__ == '__main__':
  #check_data_and_lable()
 
- # for data in testloader:
- #  x, labels = data[0].to(device), data[1].to(device)
- #  break
+ for data in testloader:
+  x, labels = data[0].to(device), data[1].to(device)
+  break
+ print('tensor size',x.size())
+
  #
  #
  # net.load_state_dict(torch.load(PATH))
