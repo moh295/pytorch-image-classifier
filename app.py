@@ -17,7 +17,7 @@ if __name__ == '__main__':
  stat_dic=start_training(net,5,trainloader,optimizer,criterion)
  end = timer()
  print('traning time',timedelta(seconds=end - start))
- PATH = './cifar_net.pth'
+ PATH = '/data/cifar_net.pth'
 
  print('saving checkpoint to ',PATH)
  torch.save(stat_dic, PATH)
