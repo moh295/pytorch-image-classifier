@@ -20,7 +20,7 @@ def start_training(model,epochs,trainloader,optimizer,criterion):
             optimizer.zero_grad()
 
             # forward + backward + optimize
-            outputs = model(inputs)
+            outputs = model(inputs).to(device)
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
