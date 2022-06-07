@@ -23,5 +23,5 @@ if __name__ == '__main__':
  # x = torch.ones((1, 3, 5, 5)).cuda()
  dataiter = iter(trainloader)
  # print(dataiter.next())
- x=dataiter.next().to(device)
- start_converting(net,x)
+ inputs, labels = dataiter[0].to(device), dataiter[1].to(device)
+ start_converting(net,inputs)
