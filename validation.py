@@ -80,8 +80,8 @@ def each_class_check(model,checkpoint):
 def torch2trt_check(model,checkpoint,trt_checkpoint):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    model.load_state_dict(torch.load(checkpoint))
-    model_trt=model.load_state_dict(torch.load(trt_checkpoint))
+    model.load_state_dict(torch.load(trt_checkpoint))
+    model_trt=model.load_state_dict(torch.load(checkpoint))
     correct = 0
     total = 0
     # since we're not training, we don't need to calculate the gradients for our outputs
