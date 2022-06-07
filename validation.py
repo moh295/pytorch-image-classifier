@@ -30,8 +30,18 @@ def random_check(model, checkpoint):
 
 def overall_check(model,checkpoint):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    # original saved file with DataParallel
+    state_dict = torch.load(checkpoint)
+    # create new OrderedDict that does not contain `module.`
+    from collections import OrderedDict
+    new_state_dict = OrderedDict()
+    for k, v in state_dict.items():
+        name = k[7:]  # remove `module.`
+        new_state_dict[name] = v
+    # load params
+    model.load_state_dict(new_state_dict)
 
-    model.load_state_dict(torch.load(checkpoint))
+    #model.load_state_dict(torch.load(checkpoint))
 
     correct = 0
     total = 0
