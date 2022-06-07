@@ -37,6 +37,7 @@ def overall_check(model,checkpoint):
     new_state_dict = OrderedDict()
     for k, v in state_dict.items():
         name = k[7:]  # remove `module.`
+        print(k)
         new_state_dict[name] = v
     # load params
     model.load_state_dict(new_state_dict)
