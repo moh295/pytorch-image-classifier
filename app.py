@@ -23,17 +23,17 @@ if __name__ == '__main__':
 
  #
  #
- net.load_state_dict(torch.load(PATH))
- # x = torch.ones((4, 3, 32, 32)).cuda()
- model_trt=start_converting(net,x,batch_size)
+ # net.load_state_dict(torch.load(PATH))
+ # # x = torch.ones((4, 3, 32, 32)).cuda()
+ # model_trt=start_converting(net,x,batch_size)
  # stat_dic=start_training(net,2,trainloader,optimizer,criterion)
  # print('saving checkpoint to ',PATH)
  # torch.save(stat_dic, PATH)
 
  # #random_check(net,PATH)
- # overall_check(net,PATH)
- # each_class_check(net,PATH)
+ overall_check(net,TRT_TRAINED)
+ each_class_check(net,TRT_TRAINED)
 
 
  # net2=net.load_state_dict(torch.load(TRT_TRAINED))
- torch2trt_check (net,model_trt)
+ # torch2trt_check (net,model_trt)
