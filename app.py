@@ -21,5 +21,6 @@ if __name__ == '__main__':
  # overall_check(net,PATH)
  # each_class_check(net,PATH)
 
+ net.load_state_dict(torch.load(PATH))
  x = torch.ones((4, 3, 32, 32)).cuda()
  start_converting(net,x)
