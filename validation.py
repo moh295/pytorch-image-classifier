@@ -51,6 +51,7 @@ def each_class_check(model,checkpoint):
 
     # again no gradients needed
     with torch.no_grad():
+
         for data in testloader:
             images, labels = data[0].to(device), data[1].to(device)
             outputs = model(images)
