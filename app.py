@@ -6,6 +6,7 @@ from train import start_training
 from model import net,optimizer,criterion
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check
 from convert import start_converting
+from torch2trt import TRTModule
 
 PATH = '/App/data/cifar_net.pth'
 TRT_PATH = '/App/data/new_trt.pth'
@@ -27,9 +28,9 @@ if __name__ == '__main__':
  #
  #converting...
 
- net.load_state_dict(torch.load(PATH))
- x = torch.ones((4, 3, 32, 32)).cuda()
- model_trt=start_converting(net,x,batch_size)
+ # net.load_state_dict(torch.load(PATH))
+ # x = torch.ones((4, 3, 32, 32)).cuda()
+ # model_trt=start_converting(net,x,batch_size)
 
 
  #trainging ....
@@ -40,11 +41,13 @@ if __name__ == '__main__':
 
 
  #validating .....
-
+ trt_net=TRTModule()
  # #random_check(net,PATH)
- # overall_check(net,TRT_TRAINED)
- # each_class_check(net,TRT_TRAINED)
+ overall_check(trt_net,TRT_TRAINED)
+ each_class_check(trt_net,TRT_TRAINED)
 
 
  # net2=net.load_state_dict(torch.load(TRT_TRAINED))
- # torch2trt_check (net,model_trt)
+ net.load_state_dict(torch.load(PATH))
+ trt_net.load_state_dict(torch.load(TRT_TRAINED))
+ torch2trt_check (net,trt_net)
