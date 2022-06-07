@@ -29,7 +29,7 @@ def start_converting(model,input,batch_size):
         # Print model's state_dict
     print("trt Model's state_dict:")
     for param_tensor in model_trt.state_dict():
-        print(param_tensor, "\t", model_trt.state_dict()[param_tensor].size())
+        print(param_tensor, "\t", model_trt.state_dict()[param_tensor])
 
     # Print optimizer's state_dict
     print("trt Optimizer's state_dict:")
