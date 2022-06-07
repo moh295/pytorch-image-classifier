@@ -14,8 +14,9 @@ TRT_PATH = '/App/data/new_trt.pth'
 
 if __name__ == '__main__':
  #check_data_and_lable()
-
- # stat_dic=start_training(net,5,trainloader,optimizer,criterion)
+ x = torch.ones((1, 3, 32, 32)).cuda()
+ start_converting(net,x)
+ #stat_dic=start_training(model_trt,5,trainloader,optimizer,criterion)
  # print('saving checkpoint to ',PATH)
  # torch.save(stat_dic, PATH)
 
@@ -24,7 +25,6 @@ if __name__ == '__main__':
  # each_class_check(net,PATH)
 
   #net.load_state_dict(torch.load(PATH))
-  # x = torch.ones((1, 3, 32, 32)).cuda()
-  # start_converting(net,x)
+
 
  torch2trt_check (net,PATH,TRT_PATH)
