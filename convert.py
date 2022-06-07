@@ -14,6 +14,6 @@ def start_converting(model,input,batch_size):
     # check the output against PyTorch
     print('diff',torch.max(torch.abs(y - y_trt)))
     print('save trt',TRT_TRAINED)
-    torch.save(model_trt.state_dict(), TRT_TRAINED)
+    torch.save(model_trt.module.state_dict(), TRT_TRAINED)
 
     return model_trt
