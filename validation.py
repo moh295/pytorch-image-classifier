@@ -76,3 +76,46 @@ def each_class_check(model,checkpoint):
     for classname, correct_count in correct_pred.items():
         accuracy = 100 * float(correct_count) / total_pred[classname]
         print(f'Accuracy for class: {classname:5s} is {accuracy:.1f} %')
+
+def torch2trt_check(model,checkpoint,trt_checkpoint):
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+    model.load_state_dict(torch.load(checkpoint))
+    model_trt=model.load_state_dict(torch.load(trt_checkpoint))
+    correct = 0
+    total = 0
+    # since we're not training, we don't need to calculate the gradients for our outputs
+    with torch.no_grad():
+        numpred=0
+        start=timer()
+        for data in testloader:
+            numpred+=1
+            images, labels = data[0].to(device), data[1].to(device)
+            # calculate outputs by running images through the network
+            outputs = model(images)
+            # the class with the highest energy is what we choose as prediction
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    end = timer()
+    elapsed = timedelta(seconds=end - start)
+    print(f'Torch predction of {numpred} takes {elapsed}')
+    print(f'Torch Accuracy of the network on the 10000 test images: {100 * correct // total} %')
+    with torch.no_grad():
+        numpred = 0
+        start = timer()
+        for data in testloader:
+            numpred += 1
+            images, labels = data[0].to(device), data[1].to(device)
+            # calculate outputs by running images through the network
+            outputs = model_trt(images)
+            # the class with the highest energy is what we choose as prediction
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    end = timer()
+    elapsed = timedelta(seconds=end - start)
+    print(f'TensorRT predction of {numpred} takes {elapsed}')
+    print(f'TensorRT Accuracy of the network on the 10000 test images: {100 * correct // total} %')
