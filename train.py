@@ -4,9 +4,7 @@ from datetime import timedelta
 
 def start_training(model,epochs,trainloader,optimizer,criterion):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
-
     print(device)
     start = timer()
     for epoch in range(epochs):  # loop over the dataset multiple times
