@@ -4,6 +4,9 @@ from utils import imshow
 
 from dataloader import classes,testloader
 import torchvision
+from timeit import default_timer as timer
+from datetime import timedelta
+
 
 
 
@@ -32,7 +35,10 @@ def overall_check(model,checkpoint):
     total = 0
     # since we're not training, we don't need to calculate the gradients for our outputs
     with torch.no_grad():
+        numpred=0
+        start=timer()
         for data in testloader:
+            numpred+=1
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
             outputs = model(images)
@@ -41,6 +47,9 @@ def overall_check(model,checkpoint):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
+    end = timer()
+    elapsed = timedelta(seconds=end - start)
+    print(f'predction of {numpred} takes {elapsed}')
     print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 def each_class_check(model,checkpoint):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
