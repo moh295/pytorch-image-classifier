@@ -20,7 +20,7 @@ if __name__ == '__main__':
  #random_check(net,PATH)
  # overall_check(net,PATH)
  # each_class_check(net,PATH)
- x = torch.ones((1, 5, 9, 6)).cuda()
+ x = torch.ones((1, 3, 5, 5)).cuda()
  # dataiter = iter(trainloader)
  # print(dataiter.next())
  start_converting(net,x)
