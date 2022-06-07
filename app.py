@@ -26,8 +26,8 @@ if __name__ == '__main__':
 
  #
  #converting...
-
- net.load_state_dict(torch.load(PATH))
+ #
+ # net.load_state_dict(torch.load(PATH))
  # x = torch.ones((4, 3, 32, 32)).cuda()
  # model_trt=start_converting(net,x,batch_size)
 
