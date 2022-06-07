@@ -13,6 +13,6 @@ if __name__ == '__main__':
  #
  # print('saving checkpoint to ',PATH)
  # torch.save(stat_dic, PATH)
- # random_check(net,PATH)
- overall_check(net,PATH)
- each_class_check(net,PATH)
+ random_check(net,PATH)
+ #overall_check(net,PATH)
+ #each_class_check(net,PATH)

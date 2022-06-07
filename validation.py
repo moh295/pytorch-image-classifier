@@ -1,7 +1,6 @@
 
 import torch
 from utils import imshow
-
 from dataloader import classes,testloader
 import torchvision
 from timeit import default_timer as timer
@@ -10,14 +9,12 @@ from datetime import timedelta
 def random_check(model, checkpoint):
     dataiter = iter(testloader)
     images, labels = dataiter.next()
-
+    print('input tesnor size', images.size())
 
     print('GroundTruth: ', ' '.join(f'{classes[labels[j]]:5s}' for j in range(4)))
-
     model.load_state_dict(torch.load(checkpoint))
     outputs = model(images)
     _, predicted = torch.max(outputs, 1)
-
     print('Predicted: ', ' '.join(f'{classes[predicted[j]]:5s}'
                                   for j in range(4)))
 
