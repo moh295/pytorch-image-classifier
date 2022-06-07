@@ -5,6 +5,8 @@ from utils import imshow
 from dataloader import classes,testloader
 import torchvision
 
+
+
 def random_check(model, checkpoint):
     dataiter = iter(testloader)
     images, labels = dataiter.next()
@@ -23,13 +25,15 @@ def random_check(model, checkpoint):
     imshow(torchvision.utils.make_grid(images))
 
 def overall_check(model,checkpoint):
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
     model.load_state_dict(torch.load(checkpoint))
     correct = 0
     total = 0
     # since we're not training, we don't need to calculate the gradients for our outputs
     with torch.no_grad():
         for data in testloader:
-            images, labels = data
+            images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
             outputs = model(images)
             # the class with the highest energy is what we choose as prediction
@@ -39,6 +43,7 @@ def overall_check(model,checkpoint):
 
     print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 def each_class_check(model,checkpoint):
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     model.load_state_dict(torch.load(checkpoint))
     # prepare to count predictions for each class
     correct_pred = {classname: 0 for classname in classes}
@@ -47,7 +52,7 @@ def each_class_check(model,checkpoint):
     # again no gradients needed
     with torch.no_grad():
         for data in testloader:
-            images, labels = data
+            images, labels = data[0].to(device), data[1].to(device)
             outputs = model(images)
             _, predictions = torch.max(outputs, 1)
             # collect the correct predictions for each class
