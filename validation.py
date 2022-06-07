@@ -19,6 +19,7 @@ def random_check(model, checkpoint):
 
     model.load_state_dict(torch.load(checkpoint))
     outputs = model(images)
+    print('tesor size',images.size())
     _, predicted = torch.max(outputs, 1)
 
     print('Predicted: ', ' '.join(f'{classes[predicted[j]]:5s}'
