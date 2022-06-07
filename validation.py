@@ -32,7 +32,6 @@ def overall_check(model,checkpoint):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 
-
     model.load_state_dict(torch.load(checkpoint))
 
     correct = 0
