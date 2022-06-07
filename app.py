@@ -20,8 +20,6 @@ if __name__ == '__main__':
  #random_check(net,PATH)
  # overall_check(net,PATH)
  # each_class_check(net,PATH)
+
  x = torch.ones((4, 3, 32, 32)).cuda()
- #dataiter = iter(trainloader)
- # print(dataiter.next())
- #x=dataiter.next()
  start_converting(net,x)
