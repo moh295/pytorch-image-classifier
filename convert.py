@@ -13,5 +13,5 @@ def start_converting(model,input):
     print('diff',torch.max(torch.abs(y - y_trt)))
     print('save trt')
     #torch.save(model_trt.state_dict(), '/App/data/new_trt.pth')
-    torch.save(model_trt,PATH)
+
     return model_trt
