@@ -77,11 +77,11 @@ def each_class_check(model,checkpoint):
         accuracy = 100 * float(correct_count) / total_pred[classname]
         print(f'Accuracy for class: {classname:5s} is {accuracy:.1f} %')
 
-def torch2trt_check(model,model_trt,checkpoint,trt_checkpoint):
+def torch2trt_check(model,model_trt):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    model.load_state_dict(torch.load(checkpoint))
-    model_trt.load_state_dict(torch.load(trt_checkpoint))
+
+
     correct = 0
     total = 0
     # since we're not training, we don't need to calculate the gradients for our outputs
