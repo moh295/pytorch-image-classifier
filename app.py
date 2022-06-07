@@ -11,7 +11,7 @@ PATH = '/App/data/cifar_net.pth'
 
 
 if __name__ == '__main__':
- check_data_and_lable()
+ #check_data_and_lable()
 
  # stat_dic=start_training(net,5,trainloader,optimizer,criterion)
  # print('saving checkpoint to ',PATH)
@@ -20,7 +20,7 @@ if __name__ == '__main__':
  #random_check(net,PATH)
  # overall_check(net,PATH)
  # each_class_check(net,PATH)
- x = torch.ones((1, 3, 224, 224)).cuda()
-
- print(trainloader[0].shap)
- start_converting(net,trainloader[0])
+ x = torch.ones((1, 5, 9, 6)).cuda()
+ # dataiter = iter(trainloader)
+ # print(dataiter.next())
+ start_converting(net,x)
