@@ -4,7 +4,7 @@ from torch2trt import torch2trt
 PATH='/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/trained_trt.pth'
 
-def start_converting(model,input):
+def start_converting(model,input,batch_size):
     print('start converting...')
     model_trt = torch2trt(model, [input])
     y = model(input)
@@ -13,6 +13,6 @@ def start_converting(model,input):
     # check the output against PyTorch
     print('diff',torch.max(torch.abs(y - y_trt)))
     print('save trt')
-    torch.save(model_trt.state_dict(), TRT_TRAINED)
+    torch.save(model_trt.state_dict(), TRT_TRAINED,max_batch_size=batch_size)
 
     return model_trt
