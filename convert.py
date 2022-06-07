@@ -14,4 +14,4 @@ def start_converting(model,input):
     print('save trt')
     #torch.save(model_trt.state_dict(), '/App/data/new_trt.pth')
     torch.save(model_trt,PATH)
-    #return model_trt
+    return model_trt
