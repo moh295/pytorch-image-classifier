@@ -1,7 +1,7 @@
 
 from utils import check_data_and_lable
 import torch
-from dataloader import trainloader
+from dataloader import trainloader, testloader
 from train import start_training
 from model import net,optimizer,criterion
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check
@@ -11,10 +11,16 @@ PATH = '/App/data/cifar_net.pth'
 TRT_PATH = '/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/trained_trt.pth'
 
-
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == '__main__':
  #check_data_and_lable()
+
+ for data in testloader:
+  x, labels = data[0].to(device), data[1].to(device)
+  break
+
+
  net.load_state_dict(torch.load(PATH))
  x = torch.ones((1, 3, 32, 32)).cuda()
  model_trt=start_converting(net,x)
