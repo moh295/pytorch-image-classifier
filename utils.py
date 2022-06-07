@@ -1,10 +1,10 @@
 
-import torch
+
 import torchvision
-import torchvision.transforms as transforms
 
 
-import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 from dataloader import trainloader,classes,batch_size
 import numpy as np
 
