@@ -14,7 +14,7 @@ def start_training(model,epochs,trainloader,optimizer,criterion):
         running_loss = 0.0
         for i, data in enumerate(trainloader, 0):
             # get the inputs; data is a list of [inputs, labels]
-            inputs, labels = data
+            inputs, labels = data[0].to(device), data[1].to(device)
 
             # zero the parameter gradients
             optimizer.zero_grad()
@@ -33,6 +33,6 @@ def start_training(model,epochs,trainloader,optimizer,criterion):
                 print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f} elapsed {elapsed}')
                 running_loss = 0.0
 
-    print('Finished Training')
+    print('Finished Training....duration :',elapsed )
     return model.state_dict()
 
