@@ -17,9 +17,9 @@ if __name__ == '__main__':
  #check_data_and_lable()
  x = torch.ones((4, 3, 32, 32)).cuda()
  model_trt=start_converting(net,x)
- stat_dic=start_training(model_trt,5,trainloader,optimizer,criterion)
- print('saving checkpoint to ',TRT_TRAINED)
- torch.save(stat_dic, TRT_TRAINED)
+ # stat_dic=start_training(model_trt,5,trainloader,optimizer,criterion)
+ # print('saving checkpoint to ',TRT_TRAINED)
+ # torch.save(stat_dic, TRT_TRAINED)
 
  # #random_check(net,PATH)
  # overall_check(net,PATH)
