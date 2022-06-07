@@ -5,6 +5,7 @@ from dataloader import trainloader
 from train import start_training
 from model import net,optimizer,criterion
 from validation import  random_check , overall_check ,each_class_check
+from convert import start_converting
 
 PATH = '/App/data/cifar_net.pth'
 
@@ -17,5 +18,7 @@ if __name__ == '__main__':
  # torch.save(stat_dic, PATH)
 
  # random_check(net,PATH)
- overall_check(net,PATH)
- each_class_check(net,PATH)
+ # overall_check(net,PATH)
+ # each_class_check(net,PATH)
+ x = torch.ones((1, 3, 224, 224)).cuda()
+ start_converting(net,x)
