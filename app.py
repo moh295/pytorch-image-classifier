@@ -4,6 +4,7 @@ import torch
 #from dataloader import batch_size ,cifar_dataloder
 from train import start_training
 from model.nn32x10 import Net32x10
+from model.nn100x2 import Net100x2
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check
 # from convert import start_converting
 # from torch2trt import TRTModule
@@ -28,7 +29,8 @@ if __name__ == '__main__':
 
 
  #model = Net32x10().to(device)
- model = models.resnet50().to(device)
+ model = Net100x2().to(device)
+ #model = models.resnet50().to(device)
 
 
  criterion = nn.CrossEntropyLoss()
@@ -39,7 +41,7 @@ if __name__ == '__main__':
 
  #loading/checking data....
 
- batch_size=64
+ batch_size=4
  model_path = pc
  img_dir = 'data/dogsandcats'
  classes = ('cat', 'dog')
