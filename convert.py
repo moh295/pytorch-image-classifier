@@ -3,7 +3,7 @@ from torch2trt import torch2trt
 from model import optimizer
 
 PATH='/App/data/new_trt.pth'
-TRT_TRAINED='/App/data/trained_trt.pth'
+TRT_TRAINED='/App/data/resnet50.pth'
 
 def start_converting(model,input,batch_size):
     print('start converting...')

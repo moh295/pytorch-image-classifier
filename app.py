@@ -1,7 +1,7 @@
 
 from utils import check_data_and_lable
 import torch
-#from dataloader import batch_size ,cifar_dataloder
+from dataloader import batch_size ,cifar_dataloder
 from train import start_training
 from model.nn32x10 import Net32x10
 from model.nn100x2 import Net100x2
@@ -29,8 +29,8 @@ if __name__ == '__main__':
 
 
  #model = Net32x10().to(device)
- model = Net100x2().to(device)
- #model = models.resnet50().to(device)
+ #model = Net100x2().to(device)
+ model = models.resnet50().to(device)
 
 
  criterion = nn.CrossEntropyLoss()
@@ -41,14 +41,14 @@ if __name__ == '__main__':
 
  #loading/checking data....
 
- batch_size=4
+ batch_size=64
  model_path = pc
  img_dir = 'data/dogsandcats'
  classes = ('cat', 'dog')
- #classes = ('plane', 'car', 'bird', 'cat',
- #           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
- #data=cifar_dataloder
- data=load_data(img_dir,batch_size,'train',True,0.8) #('a','b')
+ classes = ('plane', 'car', 'bird', 'cat',
+            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+ data=cifar_dataloder
+ #data=load_data(img_dir,batch_size,'train',True,0.8) #('a','b')
 
  train_loader, val_loader =data
 
@@ -63,29 +63,30 @@ if __name__ == '__main__':
  #
  #converting...
 
- # net.load_state_dict(torch.load(PATH))
+ # model.load_state_dict(torch.load(model_path))
  # x = torch.ones((4, 3, 32, 32)).cuda()
- # model_trt=start_converting(net,x,batch_size)
+ # model_trt=start_converting(model,x,batch_size)
 
 
  #trainging ....
  epochs=3
 
  stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
- print('saving checkpoint to ',model_path)
- torch.save(stat_dic, model_path)
+ # print('saving checkpoint to ',model_path)
+ # torch.save(stat_dic, model_path)
 
 
  #validating .....
  # trt_net=TRTModule()
 
- # random_check(net,model_path,data,classes)
+ # random_check(model,model_path,data,classes)
  #
- # overall_check(net,model_path,data,classes)
- # each_class_check(net,model_path,data,classes)
+ # overall_check(model,model_path,data,classes)
+ # each_class_check(model,model_path,data,classes)
 
 
  # net2=net.load_state_dict(torch.load(TRT_TRAINED))
  # net.load_state_dict(torch.load(PATH))
  # trt_net.load_state_dict(torch.load(TRT_TRAINED))
- # torch2trt_check (net,trt_net)
+ # torch2trt_check (model,trt_net)
+
