@@ -29,14 +29,14 @@ if __name__ == '__main__':
 
 
  #model = Net32x10().to(device)
- #model = Net100x2().to(device)
- model = models.resnet50().to(device)
+ model = Net100x2().to(device)
+ #model = models.resnet50().to(device)
 
 
  criterion = nn.CrossEntropyLoss()
- #optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+ optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
  lr = 0.003
- optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-5)
+ #optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-5)
 
 
  #loading/checking data....
@@ -45,10 +45,10 @@ if __name__ == '__main__':
  model_path = PATH
  img_dir = 'data/dogsandcats'
  classes = ('cat', 'dog')
- classes = ('plane', 'car', 'bird', 'cat',
-            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
- data=cifar_dataloder
- #data=load_data(img_dir,batch_size,'train',True,0.8) #('a','b')
+ #classes = ('plane', 'car', 'bird', 'cat',
+ #           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+ #data=cifar_dataloder
+ data=load_data(img_dir,batch_size,'train',True,0.8) #('a','b')
 
  train_loader, val_loader =data
 
