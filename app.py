@@ -82,10 +82,10 @@ if __name__ == '__main__':
 
  # random_check(model,model_path,data,classes)
  #
- # overall_check(model,model_path,data,classes)
+ #overall_check(model,model_path,data,classes)
  # each_class_check(model,model_path,data,classes)
 
 
  #trt_net.load_state_dict(torch.load(TRT_TRAINED))
- torch2trt_check (model,model_trt,data)
+ torch2trt_check (model_trt,model, data)
 
