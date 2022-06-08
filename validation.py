@@ -138,7 +138,7 @@ def overall_check2(model,loder,batch_size):
     with torch.no_grad():
         numpred=0
         start=timer()
-        for data in train_loader:
+        for data in val_loader:
 
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
@@ -153,5 +153,5 @@ def overall_check2(model,loder,batch_size):
 
     end = timer()
     elapsed = timedelta(seconds=end - start)
-    print(f'predction of {numpred} takes {elapsed}')
+    print(f'prediction of {numpred*batch_size} instance takes {elapsed}')
     print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
