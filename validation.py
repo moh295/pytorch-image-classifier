@@ -107,6 +107,9 @@ def torch2trt_check(model,model_trt,loder):
     elapsed = timedelta(seconds=end - start)
     print(f'Torch predction of {numpred} takes {elapsed}')
     print(f'Torch Accuracy of the network on the 10000 test images: {100 * correct // total} %')
+
+    correct = 0
+    total = 0
     with torch.no_grad():
         numpred = 0
         start = timer()
