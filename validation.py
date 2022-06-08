@@ -145,7 +145,7 @@ def overall_check2(model,loder,batch_size):
             outputs = model(images)
             # the class with the highest energy is what we choose as prediction
             _, predicted = torch.max(outputs.data, 1)
-            print('lable size', labels.size(0),labels.size())
+            # print('lable size', labels.size(0),labels.size())
             if labels.size(0) == batch_size:
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()

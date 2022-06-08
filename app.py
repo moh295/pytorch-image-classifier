@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
 
  #trainging ....
- epochs=3
+ epochs=10
 
  stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
  print('saving checkpoint to ',TRT_TRAINED)
