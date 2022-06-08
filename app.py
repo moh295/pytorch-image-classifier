@@ -6,8 +6,8 @@ from train import start_training
 from Mymodel.nn32x10 import Net32x10
 from Mymodel.nn100x2 import Net100x2
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check
-# from convert import start_converting
-# from torch2trt import TRTModule
+from convert import start_converting
+from torch2trt import TRTModule
 from custemDataloader import load_data
 import torch.nn as nn
 import torch.optim as optim
@@ -72,12 +72,12 @@ if __name__ == '__main__':
  epochs=3
 
  stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
- # print('saving checkpoint to ',model_path)
- # torch.save(stat_dic, model_path)
+ print('saving checkpoint to ',TRT_TRAINED)
+ torch.save(stat_dic, TRT_TRAINED)
 
 
  #validating .....
- # trt_net=TRTModule()
+ trt_net=TRTModule()
 
  # random_check(model,model_path,data,classes)
  #
@@ -85,8 +85,7 @@ if __name__ == '__main__':
  # each_class_check(model,model_path,data,classes)
 
 
- # net2=net.load_state_dict(torch.load(TRT_TRAINED))
- # net.load_state_dict(torch.load(PATH))
- # trt_net.load_state_dict(torch.load(TRT_TRAINED))
- # torch2trt_check (model,trt_net)
+
+ trt_net.load_state_dict(torch.load(TRT_TRAINED))
+ torch2trt_check (model,trt_net)
 
