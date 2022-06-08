@@ -1,6 +1,6 @@
 import torch
 from torch2trt import torch2trt
-from Mymodel import optimizer
+
 
 PATH='/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/resnet50.pth'
@@ -15,9 +15,5 @@ def start_converting(model,input,batch_size):
     print('diff',torch.max(torch.abs(y - y_trt)))
     print('save trt',TRT_TRAINED)
     torch.save(model_trt.state_dict(), TRT_TRAINED)
-
-
-
-
 
     return model_trt

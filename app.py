@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 
-PATH = '/App/data/cifar_net.pth'
+PATH = '/App/data/torch_model.pth'
 TRT_PATH = '/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/trained_trt.pth'
 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
  #loading/checking data....
 
  batch_size=64
- model_path = pc
+ model_path = PATH
  img_dir = 'data/dogsandcats'
  classes = ('cat', 'dog')
  classes = ('plane', 'car', 'bird', 'cat',
@@ -60,12 +60,6 @@ if __name__ == '__main__':
  print('tensor size',x.size(),'lable size',labels.size())
  print('label',labels)
 
- #
- #converting...
-
- # model.load_state_dict(torch.load(model_path))
- # x = torch.ones((4, 3, 32, 32)).cuda()
- # model_trt=start_converting(model,x,batch_size)
 
 
  #trainging ....
@@ -75,6 +69,12 @@ if __name__ == '__main__':
  print('saving checkpoint to ',TRT_TRAINED)
  torch.save(stat_dic, TRT_TRAINED)
 
+ #converting...
+
+ model.load_state_dict(torch.load(model_path))
+ x = torch.ones((batch_size, 3, 32, 32)).cuda()
+ model_trt=start_converting(model,x,batch_size)
+
 
  #validating .....
  trt_net=TRTModule()
@@ -83,7 +83,6 @@ if __name__ == '__main__':
  #
  # overall_check(model,model_path,data,classes)
  # each_class_check(model,model_path,data,classes)
-
 
 
  trt_net.load_state_dict(torch.load(TRT_TRAINED))
