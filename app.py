@@ -87,5 +87,5 @@ if __name__ == '__main__':
 
 
  #trt_net.load_state_dict(torch.load(TRT_TRAINED))
- torch2trt_check (model,model_trt)
+ torch2trt_check (model,model_trt,data)
 
