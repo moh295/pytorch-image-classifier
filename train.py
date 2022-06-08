@@ -31,7 +31,7 @@ def start_training(model,epochs,loder,optimizer,criterion):
 
             # print statistics
             running_loss += loss.item()
-            if i % 10 == 0:    # print every 2000 mini-batches
+            if i % 2000 == 1999:    # print every 2000 mini-batches
                 end = timer()
                 elapsed=timedelta(seconds=end - start)
                 print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f} elapsed {elapsed}')

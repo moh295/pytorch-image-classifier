@@ -1,7 +1,7 @@
 
 from utils import check_data_and_lable
 import torch
-# from dataloader import batch_size ,cifar_dataloder
+#from dataloader import batch_size ,cifar_dataloder
 from train import start_training
 from model.nn32x10 import Net32x10
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check
@@ -38,11 +38,14 @@ if __name__ == '__main__':
 
 
  #loading/checking data....
- #data=cifar_dataloder
+
  batch_size=64
  model_path = pc
  img_dir = 'data/dogsandcats'
  classes = ('cat', 'dog')
+ #classes = ('plane', 'car', 'bird', 'cat',
+ #           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+ #data=cifar_dataloder
  data=load_data(img_dir,batch_size,'train',True,0.8) #('a','b')
 
  train_loader, val_loader =data
@@ -64,8 +67,9 @@ if __name__ == '__main__':
 
 
  #trainging ....
+ epochs=3
 
- stat_dic=start_training(model,10,train_loader,optimizer,criterion)
+ stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
  print('saving checkpoint to ',model_path)
  torch.save(stat_dic, model_path)
 
