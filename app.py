@@ -3,8 +3,8 @@ from utils import check_data_and_lable
 import torch
 from dataloader import batch_size ,cifar_dataloder
 from train import start_training
-from model.nn32x10 import Net32x10
-from model.nn100x2 import Net100x2
+from Mymodel.nn32x10 import Net32x10
+from Mymodel.nn100x2 import Net100x2
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check
 # from convert import start_converting
 # from torch2trt import TRTModule

@@ -1,6 +1,6 @@
 import torch
 from torch2trt import torch2trt
-from model import optimizer
+from Mymodel import optimizer
 
 PATH='/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/resnet50.pth'
