@@ -128,7 +128,7 @@ def torch2trt_check(model,model_trt,loder):
     print(f'TensorRT predction of {numpred} takes {elapsed}')
     print(f'TensorRT Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 
-def overall_check2(model,loder):
+def overall_check2(model,loder,batch_size):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     train_loader, val_loader = loder
     model.eval()
@@ -146,8 +146,9 @@ def overall_check2(model,loder):
             # the class with the highest energy is what we choose as prediction
             _, predicted = torch.max(outputs.data, 1)
             print('lable size', labels.size(0),labels.size())
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
+            if labels.size(0) == batch_size:
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
     end = timer()
     elapsed = timedelta(seconds=end - start)
