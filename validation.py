@@ -2,7 +2,7 @@
 import torch
 from utils import imshow
 
-from dataloader import classes,testloader
+# from dataloader import classes,testloader
 import torchvision
 from timeit import default_timer as timer
 from datetime import timedelta
@@ -10,8 +10,9 @@ from datetime import timedelta
 
 
 
-def random_check(model, checkpoint):
-    dataiter = iter(testloader)
+def random_check(model, checkpoint,loder,classes):
+    train_loader, val_loader = loder
+    dataiter = iter(val_loader)
     images, labels = dataiter.next()
 
 
@@ -28,9 +29,9 @@ def random_check(model, checkpoint):
     # print images
     imshow(torchvision.utils.make_grid(images))
 
-def overall_check(model,checkpoint):
+def overall_check(model,checkpoint,loder,classes):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-
+    train_loader, val_loader = loder
 
     model.load_state_dict(torch.load(checkpoint))
 
@@ -40,7 +41,7 @@ def overall_check(model,checkpoint):
     with torch.no_grad():
         numpred=0
         start=timer()
-        for data in testloader:
+        for data in val_loader:
             numpred+=1
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
@@ -54,8 +55,9 @@ def overall_check(model,checkpoint):
     elapsed = timedelta(seconds=end - start)
     print(f'predction of {numpred} takes {elapsed}')
     print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
-def each_class_check(model,checkpoint):
+def each_class_check(model,checkpoint,loder,classes):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    train_loader, val_loader = loder
     model.load_state_dict(torch.load(checkpoint))
     # prepare to count predictions for each class
     correct_pred = {classname: 0 for classname in classes}
@@ -64,7 +66,7 @@ def each_class_check(model,checkpoint):
     # again no gradients needed
     with torch.no_grad():
 
-        for data in testloader:
+        for data in val_loader:
             images, labels = data[0].to(device), data[1].to(device)
             outputs = model(images)
             _, predictions = torch.max(outputs, 1)
@@ -79,8 +81,9 @@ def each_class_check(model,checkpoint):
         accuracy = 100 * float(correct_count) / total_pred[classname]
         print(f'Accuracy for class: {classname:5s} is {accuracy:.1f} %')
 
-def torch2trt_check(model,model_trt):
+def torch2trt_check(model,model_trt,loder):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    train_loader, val_loader = loder
 
 
 
@@ -90,7 +93,7 @@ def torch2trt_check(model,model_trt):
     with torch.no_grad():
         numpred=0
         start=timer()
-        for data in testloader:
+        for data in val_loader:
             numpred+=1
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
@@ -107,7 +110,7 @@ def torch2trt_check(model,model_trt):
     with torch.no_grad():
         numpred = 0
         start = timer()
-        for data in testloader:
+        for data in val_loader:
             numpred += 1
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network

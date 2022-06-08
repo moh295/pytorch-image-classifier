@@ -4,8 +4,8 @@ import torchvision
 
 
 
-# import matplotlib.pyplot as plt
-from dataloader import trainloader,classes,batch_size
+import matplotlib.pyplot as plt
+# from dataloader import trainloader,classes,batch_size
 import numpy as np
 
 
@@ -17,11 +17,10 @@ def imshow(img):
     plt.show()
 
 
-def check_data_and_lable():
-
-
+def check_data_and_lable(loder,classes,batch_size):
+    train_loader, val_loader = loder
     # get some random training images
-    dataiter = iter(trainloader)
+    dataiter = iter(train_loader)
     images, labels = dataiter.next()
     # print labels
     print(' '.join(f'{classes[labels[j]]:5s}' for j in range(batch_size)))
