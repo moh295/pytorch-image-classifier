@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
 
  #validating .....
- trt_net=TRTModule()
+ #trt_net=TRTModule()
 
  # random_check(model,model_path,data,classes)
  #
@@ -86,6 +86,6 @@ if __name__ == '__main__':
  # each_class_check(model,model_path,data,classes)
 
 
- trt_net.load_state_dict(torch.load(TRT_TRAINED))
- torch2trt_check (model,trt_net)
+ #trt_net.load_state_dict(torch.load(TRT_TRAINED))
+ torch2trt_check (model,model_trt)
 
