@@ -138,7 +138,7 @@ def overall_check2(model,loder,batch_size):
     with torch.no_grad():
         numpred=0
         start=timer()
-        for data in val_loader:
+        for data in train_loader:
             numpred+=1
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
