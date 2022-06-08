@@ -139,7 +139,7 @@ def overall_check2(model,loder,batch_size):
         numpred=0
         start=timer()
         for data in train_loader:
-            numpred+=1
+
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
             outputs = model(images)
@@ -149,6 +149,7 @@ def overall_check2(model,loder,batch_size):
             if labels.size(0) == batch_size:
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
+                numpred += 1
 
     end = timer()
     elapsed = timedelta(seconds=end - start)
