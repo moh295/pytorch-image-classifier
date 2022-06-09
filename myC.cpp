@@ -43,7 +43,7 @@ bool find_sub_string(std::string s1 ,std::string s2){
 
         return true
     }
-    else return false
+    else{ return false}
 }
 
 
