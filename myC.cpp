@@ -32,7 +32,7 @@ vector<string> find_file_name_list() {
     for (auto file : files) cout << file << "| ";
     cout << endl;
 
-    return file;
+    return files;
 }
 
 
@@ -52,7 +52,7 @@ bool find_sub_string(std::string s1 ,std::string s2){
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-
+    vector<string> =files;
 
 
     files=find_file_name_list();
