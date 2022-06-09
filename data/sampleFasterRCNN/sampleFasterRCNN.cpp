@@ -320,8 +320,12 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
 
     // Available images
     //const std::vector<std::string> imageList = {"000456.ppm", "000542.ppm", "001150.ppm", "001763.ppm", "004545.ppm"};
-    std::vector<std::string> imageList;
-    imageList=find_file_name_list("input_images");
+    const std::vector<std::string> imageList = {"input_images/frame0.ppm", "input_images/frame1.ppm", "input_images/frame2.ppm",
+    "input_images/frame3.ppm", "input_images/frame4.ppm","input_images/frame6.ppm", "input_images/frame7.ppm", "input_images/frame8.ppm",
+    "input_images/frame9.ppm", "input_images/frame10.ppm"};
+
+//    std::vector<std::string> imageList;
+//    imageList=find_file_name_list("input_images");
 
     mPPMs.resize(batchSize);
     assert(mPPMs.size() <= imageList.size());
