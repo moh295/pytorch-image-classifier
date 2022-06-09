@@ -334,7 +334,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
     float* hostImInfoBuffer = static_cast<float*>(buffers.getHostBuffer("im_info"));
     for (int i = 0; i < batchSize; ++i)
     {
-        readPPMFile(locateFile(imageList[i], "/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn/input_images"), mPPMs[i]);
+        readPPMFile(locateFile(imageList[i], '/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn/input_images'), mPPMs[i]);
         hostImInfoBuffer[i * 3] = float(mPPMs[i].h);     // Number of rows
         hostImInfoBuffer[i * 3 + 1] = float(mPPMs[i].w); // Number of columns
         hostImInfoBuffer[i * 3 + 2] = 1;                 // Image scale
