@@ -81,11 +81,7 @@ public:
     //! \brief Cleans up any state created in the sample class
     //!
     bool teardown();
-        //more shit..
 
-
-    bool find_sub_string(std::string, std::string);
-    std::vector<std::string>  find_file_name_list(DIR);
 
 private:
     SampleFasterRCNNParams mParams; //!< The parameters for the sample.
@@ -134,9 +130,13 @@ private:
 
 };
 
+
+
+ bool find_sub_string(std::string, std::string);
+ std::vector<std::string>  find_file_name_list(DIR);
 //more shit..
 
-std::vector<std::string> find_file_name_list(DIR imgefolder) {
+std::vector<std::string> find_file_name_list(DIR *imgefolder) {
     DIR *dir; struct dirent *diread;
     std::vector<std::string> files;
 
