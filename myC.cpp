@@ -8,7 +8,8 @@ using std::cout; using std::cin;
 using std::endl; using std::vector;
 //using std::filesystem::directory_iterator;
 
-
+bool find_sub_string(string, string);
+int find_file_name_list();
 
 
 int find_file_name_list() {
@@ -41,9 +42,9 @@ bool find_sub_string(std::string s1 ,std::string s2){
     if (s1.std::string::find(s2) != std::string::npos) {
         std::cout << "found ppm file!" << '\n';
 
-        return true ;
+        return true;
     }
-    else return false ;
+    else return false;
 }
 
 
