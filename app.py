@@ -5,6 +5,7 @@ from dataloader import batch_size ,cifar_dataloder
 from train import start_training
 from Mymodel.nn32x10 import Net32x10
 from Mymodel.nn100x2 import Net100x2
+from Mymodel.nn128x2 import Net128x2
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check,overall_check2
 from convert import start_converting
 from torch2trt import TRTModule
@@ -29,7 +30,8 @@ if __name__ == '__main__':
 
 
  #model = Net32x10().to(device)
- model = Net100x2().to(device)
+ #model = Net100x2().to(device)
+ model = Net128x2().to(device)
  #model = models.resnet50().to(device)
 
 
@@ -73,7 +75,7 @@ if __name__ == '__main__':
 
  # model.load_state_dict(torch.load(model_path))
  #x = torch.ones((batch_size, 3, 32, 32)).cuda()
- x = torch.ones((batch_size, 3, 100, 100)).cuda()
+ x = torch.ones((batch_size, 3, 128, 128)).cuda()
  model_trt=start_converting(model,x,batch_size)
 
 

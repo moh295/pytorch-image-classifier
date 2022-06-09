@@ -16,15 +16,15 @@ import torchvision.transforms as transforms
 def load_data(data_folder, batch_size, phase='train', train_val_split=True, train_ratio=.8):
     transform_dict = {
         'train': transforms.Compose(
-            [transforms.Resize(120),
-             transforms.RandomCrop(100),
+            [transforms.Resize(135),
+             transforms.RandomCrop(128),
              transforms.RandomHorizontalFlip(),
              transforms.ToTensor(),
              transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225]),
              ]),
         'test': transforms.Compose(
-            [transforms.Resize(100),
+            [transforms.Resize(128),
              transforms.ToTensor(),
              transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225]),
