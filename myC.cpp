@@ -9,7 +9,7 @@ using std::endl; using std::vector;
 //using std::filesystem::directory_iterator;
 
 bool find_sub_string(string, string);
-int find_file_name_list();
+vector<char *>  find_file_name_list();
 
 
 vector<char *> find_file_name_list() {
