@@ -12,7 +12,7 @@ bool find_sub_string(string, string);
 int find_file_name_list();
 
 
-int find_file_name_list() {
+vector<string> find_file_name_list() {
     DIR *dir; struct dirent *diread;
     vector<char *> files;
 
@@ -32,7 +32,7 @@ int find_file_name_list() {
     for (auto file : files) cout << file << "| ";
     cout << endl;
 
-    return EXIT_SUCCESS;
+    return file;
 }
 
 
@@ -55,7 +55,8 @@ int main() {
 
 
 
-    find_file_name_list();
+    files=find_file_name_list();
+    for (auto :f:files) cout<< "filename:<< f \n;
 //    for (int i=0;i<20;i++)
 //        std::cout << "i ="<< i <<std::endl;
     return 0;
