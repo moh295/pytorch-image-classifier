@@ -81,6 +81,11 @@ public:
     //! \brief Cleans up any state created in the sample class
     //!
     bool teardown();
+        //more shit..
+
+
+    bool find_sub_string(std::string, std::string);
+    std::vector<std::string>  find_file_name_list(DIR);
 
 private:
     SampleFasterRCNNParams mParams; //!< The parameters for the sample.
@@ -123,20 +128,17 @@ private:
     std::vector<int> nonMaximumSuppression(std::vector<std::pair<float, int>>& scoreIndex, float* bbox,
         const int classNum, const int numClasses, const float nmsThreshold);
 
-    //more shit..
 
-
-    bool find_sub_string(std::string, std::string);
-    std::vector<std::string>  find_file_name_list(string);
 
 
 
 };
 
+//more shit..
 
-std::vector<std::string> find_file_name_list(std::string imgefolder) {
+std::vector<std::string> find_file_name_list(DIR imgefolder) {
     DIR *dir; struct dirent *diread;
-    std::vector<string> files;
+    std::vector<std::string> files;
 
     if ((dir = opendir(imgefolder)) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
