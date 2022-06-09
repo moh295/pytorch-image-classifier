@@ -56,7 +56,7 @@ int main() {
 
 
     files=find_file_name_list();
-    for (auto f: files) cout<< "filename:<< f \n;
+    for (auto f: files) cout<< "filename:" << f <<'\n';
 //    for (int i=0;i<20;i++)
 //        std::cout << "i ="<< i <<std::endl;
     return 0;
