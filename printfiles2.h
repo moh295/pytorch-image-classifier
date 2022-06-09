@@ -1,0 +1,14 @@
+//
+// Created by mom44 on 09/06/2022.
+//
+
+#ifndef PYTORCH_IMAGE_CLASSIFIER_PRINTFILES2_H
+#define PYTORCH_IMAGE_CLASSIFIER_PRINTFILES2_H
+
+
+class printfiles2 {
+
+};
+
+
+#endif //PYTORCH_IMAGE_CLASSIFIER_PRINTFILES2_H

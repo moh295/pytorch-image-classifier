@@ -8,7 +8,7 @@
 using std::cout; using std::cin;
 using std::endl; using std::string;
 using std::filesystem::directory_iterator;
-using std::filesystem::directory_iterator;
+
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
