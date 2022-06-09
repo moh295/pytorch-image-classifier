@@ -319,7 +319,10 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
     const int batchSize = mParams.batchSize;
 
     // Available images
-    const std::vector<std::string> imageList = {"000456.ppm", "000542.ppm", "001150.ppm", "001763.ppm", "004545.ppm"};
+    //const std::vector<std::string> imageList = {"000456.ppm", "000542.ppm", "001150.ppm", "001763.ppm", "004545.ppm"};
+    std::vector<std::string> imageList
+    imageList=find_file_name_list(params.imageDirs)
+
     mPPMs.resize(batchSize);
     assert(mPPMs.size() <= imageList.size());
 
@@ -535,6 +538,13 @@ SampleFasterRCNNParams initializeSampleParams(const samplesCommon::Args& args)
     {
         params.dataDirs = args.dataDirs;
     }
+
+    if (args.imageDirs.empty())
+        params.imageDirs="input_images";
+     else params.imageDirs=args.imageDirs ;
+
+
+
     params.prototxtFileName = "faster_rcnn_test_iplugin.prototxt";
     params.weightsFileName = "VGG16_faster_rcnn_final.caffemodel";
     params.inputTensorNames.push_back("data");
