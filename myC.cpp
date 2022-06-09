@@ -17,11 +17,14 @@ int find_file_name_list() {
 
     if ((dir = opendir("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn")) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
+
+
+            if (find_sub_string(diread,".ppm"))
             files.push_back(diread->d_name);
         }
         closedir (dir);
     } else {
-        perror ("opendir");
+        perror ("no such folder");
         return EXIT_FAILURE;
     }
 
@@ -29,6 +32,18 @@ int find_file_name_list() {
     cout << endl;
 
     return EXIT_SUCCESS;
+}
+
+
+
+bool find_sub_string(std::string s1 ,std::string s2){
+
+    if (s1.std::string::find(s2) != std::string::npos) {
+        std::cout << "found ppm file!" << '\n';
+
+        return true
+    } else return false
+
 }
 
 
