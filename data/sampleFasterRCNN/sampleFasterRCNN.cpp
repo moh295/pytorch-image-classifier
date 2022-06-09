@@ -35,6 +35,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <dirent.h>
 
 const std::string gSampleName = "TensorRT.sample_fasterRCNN";
 using std::cout; using std::cin;
@@ -126,14 +127,14 @@ private:
 
 
     bool find_sub_string(std::string, std::string);
-    std::vector<string>  find_file_name_list(string);
+    std::vector<std::string>  find_file_name_list(string);
 
 
 
 };
 
 
-std::vector<string> find_file_name_list(std::string imgefolder) {
+std::vector<std::string> find_file_name_list(std::string imgefolder) {
     DIR *dir; struct dirent *diread;
     std::vector<string> files;
 
