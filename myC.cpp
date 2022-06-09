@@ -12,7 +12,7 @@ bool find_sub_string(string, string);
 int find_file_name_list();
 
 
-vector<string> find_file_name_list() {
+vector<char *> find_file_name_list() {
     DIR *dir; struct dirent *diread;
     vector<char *> files;
 
@@ -26,7 +26,7 @@ vector<string> find_file_name_list() {
         closedir (dir);
     } else {
         perror ("no such folder");
-        return EXIT_FAILURE;
+        return "EXIT_FAILURE";
     }
 
     for (auto file : files) cout << file << "| ";
@@ -52,11 +52,11 @@ bool find_sub_string(std::string s1 ,std::string s2){
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    vector<string> =files;
+    vector<char *> files;
 
 
     files=find_file_name_list();
-    for (auto :f:files) cout<< "filename:<< f \n;
+    for (auto f: files) cout<< "filename:<< f \n;
 //    for (int i=0;i<20;i++)
 //        std::cout << "i ="<< i <<std::endl;
     return 0;
