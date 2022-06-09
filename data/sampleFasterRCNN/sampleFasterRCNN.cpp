@@ -136,7 +136,7 @@ private:
  std::vector<std::string>  find_file_name_list(DIR);
 //more shit..
 
-std::vector<std::string> find_file_name_list(DIR *imgefolder) {
+std::vector<std::string> find_file_name_list(char imgefolder) {
     DIR *dir; struct dirent *diread;
     std::vector<std::string> files;
 
