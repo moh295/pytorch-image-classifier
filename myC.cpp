@@ -14,7 +14,7 @@ vector<string>  find_file_name_list();
 
 vector<string> find_file_name_list() {
     DIR *dir; struct dirent *diread;
-    vector<char *> files;
+    vector<string> files;
 
     if ((dir = opendir("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn")) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
