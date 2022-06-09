@@ -9,14 +9,14 @@ using std::endl; using std::vector;
 //using std::filesystem::directory_iterator;
 
 bool find_sub_string(string, string);
-vector<string>  find_file_name_list();
+vector<string>  find_file_name_list(string);
 
 
-vector<string> find_file_name_list() {
+vector<string> find_file_name_list(string imgefolder) {
     DIR *dir; struct dirent *diread;
     vector<string> files;
 
-    if ((dir = opendir("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn")) != nullptr) {
+    if ((dir = opendir(imgefolder)) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
 
 

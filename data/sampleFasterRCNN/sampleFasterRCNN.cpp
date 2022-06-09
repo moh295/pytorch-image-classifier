@@ -37,6 +37,8 @@
 #include <sstream>
 
 const std::string gSampleName = "TensorRT.sample_fasterRCNN";
+using std::cout; using std::cin;
+using std::endl; using std::vector;
 
 //!
 //! \brief The SampleFasterRCNNParams structure groups the additional parameters required by
@@ -119,7 +121,57 @@ private:
     //!
     std::vector<int> nonMaximumSuppression(std::vector<std::pair<float, int>>& scoreIndex, float* bbox,
         const int classNum, const int numClasses, const float nmsThreshold);
+
+    //more shit..
+
+
+    bool find_sub_string(string, string);
+    vector<string>  find_file_name_list(string);
+
+
+
 };
+
+
+vector<string> find_file_name_list(string imgefolder) {
+    DIR *dir; struct dirent *diread;
+    vector<string> files;
+
+    if ((dir = opendir(imgefolder)) != nullptr) {
+        while ((diread = readdir(dir)) != nullptr) {
+
+
+            if (find_sub_string(diread->d_name,".ppm"))
+                files.push_back(diread->d_name);
+        }
+        closedir (dir);
+    } else {
+        perror ("no such folder");
+        //return 'e';
+    }
+
+    for (auto file : files) cout << file << "| ";
+    cout << endl;
+
+    return files;
+}
+
+
+
+bool find_sub_string(std::string s1 ,std::string s2){
+
+    if (s1.std::string::find(s2) != std::string::npos) {
+        std::cout << "found ppm file!" << '\n';
+
+        return true;
+    }
+    else return false;
+}
+
+
+
+
+
 
 //!
 //! \brief Creates the network, configures the builder and creates the network engine
