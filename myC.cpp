@@ -26,7 +26,7 @@ vector<char *> find_file_name_list() {
         closedir (dir);
     } else {
         perror ("no such folder");
-        return "EXIT_FAILURE";
+        return 'EXIT_FAILURE';
     }
 
     for (auto file : files) cout << file << "| ";
