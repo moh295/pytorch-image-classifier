@@ -125,17 +125,17 @@ private:
     //more shit..
 
 
-    bool find_sub_string(string, string);
-    vector<string>  find_file_name_list(string);
+    bool find_sub_string(std::string, std::string);
+    std::vector<string>  find_file_name_list(string);
 
 
 
 };
 
 
-vector<string> find_file_name_list(string imgefolder) {
+std::vector<string> find_file_name_list(std::string imgefolder) {
     DIR *dir; struct dirent *diread;
-    vector<string> files;
+    std::vector<string> files;
 
     if ((dir = opendir(imgefolder)) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
@@ -150,8 +150,8 @@ vector<string> find_file_name_list(string imgefolder) {
         //return 'e';
     }
 
-    for (auto file : files) cout << file << "| ";
-    cout << endl;
+    for (auto file : files) std::cout << file << "| ";
+    std::cout << endl;
 
     return files;
 }
