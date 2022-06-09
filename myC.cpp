@@ -20,7 +20,7 @@ int find_file_name_list() {
         while ((diread = readdir(dir)) != nullptr) {
 
 
-            if (find_sub_string(diread,".ppm"))
+            if (find_sub_string(diread->d_name,".ppm"))
             files.push_back(diread->d_name);
         }
         closedir (dir);
