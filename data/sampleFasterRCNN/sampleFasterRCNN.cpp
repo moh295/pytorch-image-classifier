@@ -375,6 +375,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
                 hostDataBuffer[i * volImg + c * volChl + j] = float(mPPMs[i].buffer[j * inputC + 2 - c]) - pixelMean[c];
         }
     }
+    elapsed(start_time)
     start_time = std::chrono::high_resolution_clock::now();
     return true;
 }
@@ -459,6 +460,7 @@ bool SampleFasterRCNN::verifyOutput(const samplesCommon::BufferManager& buffers)
         }
         pass &= numDetections >= 1;
     }
+
     sample::gLogInfo << "finshed in "<<  elapsed(start_time)<<"seconds"<< std::endl;
     return pass;
 }
@@ -576,7 +578,7 @@ SampleFasterRCNNParams initializeSampleParams(const samplesCommon::Args& args)
     params.weightsFileName = "VGG16_faster_rcnn_final.caffemodel";
     params.inputTensorNames.push_back("data");
     params.inputTensorNames.push_back("im_info");
-    params.batchSize = 16;
+    params.batchSize = 32;
     params.outputTensorNames.push_back("bbox_pred");
     params.outputTensorNames.push_back("cls_prob");
     params.outputTensorNames.push_back("rois");
