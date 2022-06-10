@@ -140,7 +140,7 @@ std::vector<std::string> find_file_name_list(const char* imgefolder) {
     DIR *dir; struct dirent *diread;
     std::vector<std::string> files;
 
-    if ((dir = opendir("/media/workspace/simple-classifier# cd /usr/src/tensorrt/samples/sampleFasterRCNN/faster-rcnn")) != nullptr) {
+    if ((dir = opendir("/media/workspace/simple-classifier/sampleFasterRCNN/faster-rcnn")) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
 
 
