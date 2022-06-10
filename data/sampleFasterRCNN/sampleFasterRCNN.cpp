@@ -387,7 +387,7 @@ bool SampleFasterRCNN::verifyOutput(const samplesCommon::BufferManager& buffers)
     bboxTransformInvAndClip(rois, deltas, predBBoxes.data(), imInfo, batchSize, nmsMaxOut, outputClsSize);
 
     const float nmsThreshold = 0.3f;
-    const float score_threshold = 0.8f;
+    const float score_threshold = 0.5f;
     const std::vector<std::string> classes{"background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",
         "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa",
         "train", "tvmonitor"};
@@ -553,7 +553,7 @@ SampleFasterRCNNParams initializeSampleParams(const samplesCommon::Args& args)
     params.weightsFileName = "VGG16_faster_rcnn_final.caffemodel";
     params.inputTensorNames.push_back("data");
     params.inputTensorNames.push_back("im_info");
-    params.batchSize = 10;
+    params.batchSize = 1;
     params.outputTensorNames.push_back("bbox_pred");
     params.outputTensorNames.push_back("cls_prob");
     params.outputTensorNames.push_back("rois");
