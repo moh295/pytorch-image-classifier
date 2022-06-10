@@ -134,7 +134,22 @@ private:
 
  bool find_sub_string(std::string, std::string);
  std::vector<std::string>  find_file_name_list(DIR);
+float elapsed(std::chrono::system_clock::time_point );
 //more shit..
+
+float elapsed(std::chrono::system_clock::time_point time_then){
+
+    auto timeInMicroSec=std::chrono::high_resolution_clock::now()-time_then;
+    float elapsed(timeInMicroSec.count());
+
+    cout << "elapsed:"<< elapsed/1000000000;
+    return elapsed;
+
+}
+
+
+//auto start_time = std::chrono::high_resolution_clock::now();
+//elapsed(start_time);
 
 std::vector<std::string> find_file_name_list(const char* imgefolder) {
     DIR *dir; struct dirent *diread;
@@ -324,6 +339,11 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
 //    "input_images/frame3.ppm", "input_images/frame4.ppm","input_images/frame6.ppm", "input_images/frame7.ppm", "input_images/frame8.ppm",
 //    "input_images/frame9.ppm", "input_images/frame10.ppm"};
 
+
+
+   //loading the shit
+    auto start_time = std::chrono::high_resolution_clock::now();
+
     std::vector<std::string> imageList;
    imageList=find_file_name_list("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn");
 
@@ -437,6 +457,7 @@ bool SampleFasterRCNN::verifyOutput(const samplesCommon::BufferManager& buffers)
         }
         pass &= numDetections >= 1;
     }
+    sample::gLogInfo << "finshed in "<<  elapsed(start_time)<<"seconds"<< std::endl;
     return pass;
 }
 
@@ -553,7 +574,7 @@ SampleFasterRCNNParams initializeSampleParams(const samplesCommon::Args& args)
     params.weightsFileName = "VGG16_faster_rcnn_final.caffemodel";
     params.inputTensorNames.push_back("data");
     params.inputTensorNames.push_back("im_info");
-    params.batchSize = 5;
+    params.batchSize = 20;
     params.outputTensorNames.push_back("bbox_pred");
     params.outputTensorNames.push_back("cls_prob");
     params.outputTensorNames.push_back("rois");
