@@ -343,7 +343,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
 
 
    //loading the shit
-   start_time = std::chrono::high_resolution_clock::now();
+
 
     std::vector<std::string> imageList;
    imageList=find_file_name_list("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn");
@@ -374,7 +374,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
                 hostDataBuffer[i * volImg + c * volChl + j] = float(mPPMs[i].buffer[j * inputC + 2 - c]) - pixelMean[c];
         }
     }
-
+    start_time = std::chrono::high_resolution_clock::now();
     return true;
 }
 
