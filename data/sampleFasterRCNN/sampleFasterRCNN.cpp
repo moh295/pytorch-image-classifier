@@ -375,7 +375,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
                 hostDataBuffer[i * volImg + c * volChl + j] = float(mPPMs[i].buffer[j * inputC + 2 - c]) - pixelMean[c];
         }
     }
-    elapsed(start_time)
+    elapsed(start_time);
     start_time = std::chrono::high_resolution_clock::now();
     return true;
 }
