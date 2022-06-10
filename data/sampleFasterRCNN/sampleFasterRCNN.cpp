@@ -247,7 +247,7 @@ void SampleFasterRCNN::constructNetwork(SampleUniquePtr<nvcaffeparser1::ICaffePa
     }
 
     builder->setMaxBatchSize(mParams.batchSize);
-    config->setMaxWorkspaceSize(16_MiB);
+    config->setMaxWorkspaceSize(64_MiB);
     samplesCommon::enableDLA(builder.get(), config.get(), mParams.dlaCore);
 }
 
