@@ -408,7 +408,7 @@ bool SampleFasterRCNN::verifyOutput(const samplesCommon::BufferManager& buffers)
     bboxTransformInvAndClip(rois, deltas, predBBoxes.data(), imInfo, batchSize, nmsMaxOut, outputClsSize);
 
     const float nmsThreshold = 0.3f;
-    const float score_threshold = 0.5f;
+    const float score_threshold = 0.8f;
     const std::vector<std::string> classes{"background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",
         "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa",
         "train", "tvmonitor"};
