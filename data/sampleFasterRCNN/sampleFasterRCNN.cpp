@@ -40,7 +40,7 @@
 const std::string gSampleName = "TensorRT.sample_fasterRCNN";
 using std::cout; using std::cin;
 using std::endl; using std::vector;
-public std::chrono::system_clock::time_point start_time;
+
 
 //!
 //! \brief The SampleFasterRCNNParams structure groups the additional parameters required by
@@ -92,6 +92,7 @@ private:
     static const int kIMG_CHANNELS = 3;
     static const int kIMG_H = 375;
     static const int kIMG_W = 500;
+  std::chrono::system_clock::time_point start_time;
     std::vector<samplesCommon::PPM<kIMG_CHANNELS, kIMG_H, kIMG_W>> mPPMs; //!< PPMs of test images
 
     std::shared_ptr<nvinfer1::ICudaEngine> mEngine; //!< The TensorRT engine used to run the network
