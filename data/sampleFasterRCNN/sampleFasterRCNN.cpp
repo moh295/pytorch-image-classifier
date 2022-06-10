@@ -578,7 +578,7 @@ SampleFasterRCNNParams initializeSampleParams(const samplesCommon::Args& args)
     params.weightsFileName = "VGG16_faster_rcnn_final.caffemodel";
     params.inputTensorNames.push_back("data");
     params.inputTensorNames.push_back("im_info");
-    params.batchSize = 32;
+    params.batchSize = 5;
     params.outputTensorNames.push_back("bbox_pred");
     params.outputTensorNames.push_back("cls_prob");
     params.outputTensorNames.push_back("rois");
