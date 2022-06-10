@@ -140,7 +140,7 @@ std::vector<std::string> find_file_name_list(const char* imgefolder) {
     DIR *dir; struct dirent *diread;
     std::vector<std::string> files;
 
-    if ((dir = opendir("/media/workspace/simple-classifier# cd /usr/src/tensorrt/samples/sampleFasterRCNN/faster-rcnn")) != nullptr) {
+    if ((dir = opendir("/media/workspace/simple-classifier# cd /usr/src/tensorrt/samples/sampleFasterRCNN/faster-rcnn/input_images")) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
 
 
@@ -334,7 +334,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
     float* hostImInfoBuffer = static_cast<float*>(buffers.getHostBuffer("im_info"));
     for (int i = 0; i < batchSize; ++i)
     {
-        readPPMFile(locateFile(imageList[i], mParams.dataDirs), mPPMs[i]);
+        readPPMFile(locateFile(imageList[i], mParams.dataDirs+"/input_images"), mPPMs[i]);
         hostImInfoBuffer[i * 3] = float(mPPMs[i].h);     // Number of rows
         hostImInfoBuffer[i * 3 + 1] = float(mPPMs[i].w); // Number of columns
         hostImInfoBuffer[i * 3 + 2] = 1;                 // Image scale
