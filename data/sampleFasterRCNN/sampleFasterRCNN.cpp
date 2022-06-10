@@ -140,7 +140,7 @@ std::vector<std::string> find_file_name_list(const char* imgefolder) {
     DIR *dir; struct dirent *diread;
     std::vector<std::string> files;
 
-    if ((dir = opendir("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn")) != nullptr) {
+    if ((dir = opendir(imgefolder)) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
 
 
@@ -325,7 +325,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
 //    "input_images/frame9.ppm", "input_images/frame10.ppm"};
 
     std::vector<std::string> imageList;
-   imageList=find_file_name_list("input_images");
+   imageList=find_file_name_list("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn");
 
     mPPMs.resize(batchSize);
     assert(mPPMs.size() <= imageList.size());
