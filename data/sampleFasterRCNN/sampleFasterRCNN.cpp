@@ -40,6 +40,7 @@
 const std::string gSampleName = "TensorRT.sample_fasterRCNN";
 using std::cout; using std::cin;
 using std::endl; using std::vector;
+public std::chrono::system_clock::time_point start_time;
 
 //!
 //! \brief The SampleFasterRCNNParams structure groups the additional parameters required by
@@ -342,7 +343,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
 
 
    //loading the shit
-    auto start_time = std::chrono::high_resolution_clock::now();
+   start_time = std::chrono::high_resolution_clock::now();
 
     std::vector<std::string> imageList;
    imageList=find_file_name_list("/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn");
