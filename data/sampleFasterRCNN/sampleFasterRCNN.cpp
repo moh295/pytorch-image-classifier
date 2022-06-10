@@ -356,7 +356,7 @@ bool SampleFasterRCNN::processInput(const samplesCommon::BufferManager& buffers)
     float* hostImInfoBuffer = static_cast<float*>(buffers.getHostBuffer("im_info"));
     for (int i = 0; i < batchSize; ++i)
     {
-        readPPMFile(locateFile(imageList[i], mParams.dataDirs), mPPMs[i]);
+        readPPMFile(locateFile(imageList[i], "/media/workspace/simple-classifier/data/sampleFasterRCNN/faster-rcnn"), mPPMs[i]);
         hostImInfoBuffer[i * 3] = float(mPPMs[i].h);     // Number of rows
         hostImInfoBuffer[i * 3 + 1] = float(mPPMs[i].w); // Number of columns
         hostImInfoBuffer[i * 3 + 2] = 1;                 // Image scale
@@ -576,7 +576,7 @@ SampleFasterRCNNParams initializeSampleParams(const samplesCommon::Args& args)
     params.weightsFileName = "VGG16_faster_rcnn_final.caffemodel";
     params.inputTensorNames.push_back("data");
     params.inputTensorNames.push_back("im_info");
-    params.batchSize = 20;
+    params.batchSize = 5;
     params.outputTensorNames.push_back("bbox_pred");
     params.outputTensorNames.push_back("cls_prob");
     params.outputTensorNames.push_back("rois");
