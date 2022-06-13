@@ -53,11 +53,12 @@ if __name__ == '__main__':
 
 
     #trainging ....
-    # epochs=5
-    #
-    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    # print('saving checkpoint to ',TORCH_TRAINED)
-    # torch.save(stat_dic, TORCH_TRAINED)
+
+
+    epochs=5
+    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    print('saving checkpoint to ',TORCH_TRAINED)
+    torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
     model.eval()
