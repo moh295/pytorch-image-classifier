@@ -3,7 +3,7 @@ from utils import check_data_and_lable
 import torch
 from dataloader import cifar_dataloder
 from train import start_training
-from Mymodel.nn32x2_v2 import Net32x2_v2
+from Mymodel.nn300x2_v2 import Net300x2_v2
 
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check,overall_check2
 from convert import start_converting
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
 
 
-    model = Net32x2_v2().to(device)
+    model = Net300x2_v2().to(device)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     #converting...
 
     # model.load_state_dict(torch.load(model_path))
-    x = torch.ones((batch_size, 3, 32, 32)).cuda()
+    x = torch.ones((batch_size, 3, 300, 300)).cuda()
     model_trt=start_converting(model,x,batch_size)
 
 

@@ -4,9 +4,9 @@ import torch.nn.functional as F
 
 
 
-class Net32x2_v2(nn.Module):
+class Net300x2_v2(nn.Module):
     def __init__(self):
-        super(Net32x2_v2, self).__init__()
+        super(Net300x2_v2, self).__init__()
         # 3 input image channel, 16 output channels, 3x3 square convolution kernel
         self.conv1 = nn.Conv2d(3,16,kernel_size=3,stride=2,padding=1)
         self.conv2 = nn.Conv2d(16, 32,kernel_size=3,stride=2, padding=1)
