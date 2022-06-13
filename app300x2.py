@@ -52,15 +52,15 @@ if __name__ == '__main__':
 
 
     #trainging ....
-    epochs=10
-
-    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    print('saving checkpoint to ',TRT_TRAINED)
-    torch.save(stat_dic, TRT_TRAINED)
+    # epochs=10
+    #
+    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    # print('saving checkpoint to ',TRT_TRAINED)
+    # torch.save(stat_dic, TRT_TRAINED)
 
     #converting...
 
-    # model.load_state_dict(torch.load(model_path))
+    model.load_state_dict(torch.load(TRT_TRAINED))
     x = torch.ones((batch_size, 3, 300, 300)).cuda()
     model_trt=start_converting(model,x,batch_size)
 
