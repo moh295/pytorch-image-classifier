@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     #converting...
 
-    model.load_state_dict(torch.load(TRAINED))
+    model.load_state_dict(torch.load(TORCH_TRAINED))
     x = torch.ones((batch_size, 3, input_size, input_size)).cuda()
     model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
 
