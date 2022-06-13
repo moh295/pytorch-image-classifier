@@ -10,7 +10,7 @@ class Net128x2(nn.Module):
         self.conv1 = nn.Conv2d(3, 60, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(60, 48, 5)
-        self.fc1 = nn.Linear(48 * 22 * 22, 120)
+        self.fc1 = nn.Linear(48 * 29 * 29, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 2)
 

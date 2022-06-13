@@ -38,7 +38,7 @@ if __name__ == '__main__':
     #loading/checking data....
 
     batch_size=128
-    model_path = PATH
+
 
     train_loader, val_loader,classes =load_data(img_dir,batch_size,'train',True,0.7)
 
@@ -54,14 +54,14 @@ if __name__ == '__main__':
     # epochs=10
     #
     # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    # print('saving checkpoint to ',TRT_TRAINED)
-    # torch.save(stat_dic, TRT_TRAINED)
+    # print('saving checkpoint to ',TORCH_TRAINED)
+    # torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
 
-    model.load_state_dict(torch.load(TRT_TRAINED))
+    model.load_state_dict(torch.load(TORCH_TRAINED))
     x = torch.ones((batch_size, 3, 300, 300)).cuda()
-    model_trt=start_converting(model,x,batch_size)
+    model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
 
 
     #validating .....
