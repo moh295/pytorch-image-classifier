@@ -128,9 +128,9 @@ def torch2trt_check(model,model_trt,loder):
     print(f'TensorRT predction of {numpred} takes {elapsed}')
     print(f'TensorRT Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 
-def overall_check2(model,loder,batch_size):
+def overall_check2(model,val_loader,batch_size):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    train_loader, val_loader = loder
+
     model.eval()
     correct = 0
     total = 0
