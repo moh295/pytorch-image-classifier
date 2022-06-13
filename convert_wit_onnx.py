@@ -17,8 +17,6 @@ def onnx_start_converting(model,input,batch_size,TRT_TRAINED):
                                  input,
                                  "resnet50.onnx",
                                  verbose=False,
-                                 input_names=input_names,
-                                 output_names=output_names,
                                  export_params=True,
                                  )
 

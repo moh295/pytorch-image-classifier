@@ -61,11 +61,11 @@ if __name__ == '__main__':
     torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
-    model.eval()
+
     # model.load_state_dict(torch.load(TORCH_TRAINED))
     x = torch.ones((batch_size, 3, input_size, input_size)).cuda()
-    model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
-    #model_trt=onnx_start_converting(model,x,batch_size,TRT_TRAINED)
+    #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
+    model_trt=onnx_start_converting(model,x,batch_size,TRT_TRAINED)
 
     #validating .....
     #trt_net=TRTModule()
