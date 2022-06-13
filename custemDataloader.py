@@ -17,15 +17,15 @@ def load_data(data_folder, batch_size, phase='train', train_val_split=True, trai
     classes = ('cat', 'dog')
     transform_dict = {
         'train': transforms.Compose(
-            [transforms.Resize(135),
-             transforms.RandomCrop(128),
+            [transforms.Resize(350),
+             transforms.RandomCrop(300),
              transforms.RandomHorizontalFlip(),
              transforms.ToTensor(),
              transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225]),
              ]),
         'test': transforms.Compose(
-            [transforms.Resize(128),
+            [transforms.Resize(300),
              transforms.ToTensor(),
              transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225]),

@@ -3,7 +3,7 @@ from utils import check_data_and_lable
 import torch
 from dataloader import cifar_dataloder
 from train import start_training
-from Mymodel.nn32x10_v2 import Net32x10_v2
+from Mymodel.nn32x2_v2 import Net32x2_v2
 
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check,overall_check2
 from convert import start_converting
@@ -18,6 +18,7 @@ TRT_PATH = '/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/trained_trt.pth'
 
 pc='catsanddogs.pth'
+img_dir = 'data/dogsandcats'
 
 
 
@@ -29,7 +30,7 @@ if __name__ == '__main__':
 
 
 
-    model = Net32x10_v2().to(device)
+    model = Net32x2_v2().to(device)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -37,10 +38,10 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=25
+    batch_size=128
     model_path = PATH
 
-    train_loader, val_loader,classes =cifar_dataloder(batch_size)
+    train_loader, val_loader,classes =load_data(img_dir,batch_size,'train',True,0.7)
 
     for d in val_loader:
         x, labels = d[0].to(device), d[1].to(device)
