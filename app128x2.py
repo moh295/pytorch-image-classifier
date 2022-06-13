@@ -18,7 +18,7 @@ from torchvision import models
 
 TORCH_TRAINED= '/App/data/torch_trained_Net128x2.pth'
 TRT_TRAINED='/App/data/trt_trained_Net128x2.pth'
-ONNX_TRAINED="/App/data/resnet50.pth"
+ONNX_TRAINED="/App/data/onxx_trained_net128x2.onnx"
 
 img_dir = 'data/dogsandcats'
 
