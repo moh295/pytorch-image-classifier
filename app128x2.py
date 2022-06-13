@@ -3,7 +3,8 @@ from utils import check_data_and_lable
 import torch
 from dataloader import cifar_dataloder
 from train import start_training
-from Mymodel.nn300x2_v2 import Net300x2_v2
+# from Mymodel.nn300x2_v2 import Net300x2_v2
+from Mymodel.nn128x2 import Net128x2
 
 from validation import  random_check , overall_check ,each_class_check,torch2trt_check,overall_check2
 from convert import start_converting
@@ -14,11 +15,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 
-PATH = '/App/data/torch_model.pth'
-TRT_PATH = '/App/data/new_trt.pth'
-TRT_TRAINED='/App/data/trained_trt.pth'
 
-pc='catsanddogs.pth'
+TORCH_TRAINED= '/App/data/torch_trained_Net128x2.pth'
+TRT_TRAINED='/App/data/trt_trained_Net128x2.pth'
+
 img_dir = 'data/dogsandcats'
 
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
 
 
-    model = Net300x2_v2().to(device)
+    model = Net128x2().to(device)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -39,8 +39,8 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=128
-    model_path = PATH
+    batch_size=64
+    input_size=128
 
     train_loader, val_loader,classes =load_data(img_dir,batch_size,'train',True,0.7)
 
@@ -53,17 +53,17 @@ if __name__ == '__main__':
 
 
     #trainging ....
-    # epochs=10
-    #
-    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    # print('saving checkpoint to ',TRT_TRAINED)
-    # torch.save(stat_dic, TRT_TRAINED)
+    epochs=5
+
+    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    print('saving checkpoint to ',TORCH_TRAINED)
+    torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
 
-    model.load_state_dict(torch.load(TRT_TRAINED))
-    x = torch.ones((batch_size, 3, 300, 300)).cuda()
-    model_trt=start_converting(model,x,batch_size)
+    # model.load_state_dict(torch.load(TRAINED))
+    x = torch.ones((batch_size, 3, input_size, input_size)).cuda()
+    model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
 
 
     #validating .....

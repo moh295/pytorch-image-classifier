@@ -13,19 +13,19 @@ import torchvision.transforms as transforms
 # transforms.Resize(256),
 # transforms.RandomCrop(224)
 
-def load_data(data_folder, batch_size, phase='train', train_val_split=True, train_ratio=.8):
+def load_data(data_folder,input_size, batch_size, phase='train', train_val_split=True, train_ratio=.8):
     classes = ('cat', 'dog')
     transform_dict = {
         'train': transforms.Compose(
-            [transforms.Resize(350),
-             transforms.RandomCrop(300),
+            [transforms.Resize(int(input_size*1.2)),
+             transforms.RandomCrop(input_size),
              transforms.RandomHorizontalFlip(),
              transforms.ToTensor(),
              transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225]),
              ]),
         'test': transforms.Compose(
-            [transforms.Resize(300),
+            [transforms.Resize(input_size),
              transforms.ToTensor(),
              transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225]),
