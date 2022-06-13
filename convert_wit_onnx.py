@@ -9,7 +9,7 @@ import torch.onnx
 PATH='/App/data/new_trt.pth'
 TRT_TRAINED='/App/data/resnet50.pth'
 
-def onnx_start_converting(model,input,batch_size):
+def onnx_start_converting(model,input,batch_size,TRT_TRAINED):
     print('start converting...')
     input_names='input'
     output_names= 'output'
