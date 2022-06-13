@@ -42,7 +42,7 @@ if __name__ == '__main__':
     batch_size=64
     input_size=128
 
-    train_loader, val_loader,classes =load_data(img_dir,batch_size,'train',True,0.7)
+    train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
 
     for d in val_loader:
         x, labels = d[0].to(device), d[1].to(device)

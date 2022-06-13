@@ -14,11 +14,9 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 
-PATH = '/App/data/torch_model.pth'
-TRT_PATH = '/App/data/new_trt.pth'
-TRT_TRAINED='/App/data/trained_trt.pth'
+TORCH_TRAINED= '/App/data/torch_trained_Net300x2.pth'
+TRT_TRAINED='/App/data/trt_trained_Net300x2.pth'
 
-pc='catsanddogs.pth'
 img_dir = 'data/dogsandcats'
 
 
