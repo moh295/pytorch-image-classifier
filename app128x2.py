@@ -18,6 +18,7 @@ from torchvision import models
 
 TORCH_TRAINED= '/App/data/torch_trained_Net128x2.pth'
 TRT_TRAINED='/App/data/trt_trained_Net128x2.pth'
+ONNX_TRAINED="/App/data/resnet50.pth"
 
 img_dir = 'data/dogsandcats'
 
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     # model.load_state_dict(torch.load(TORCH_TRAINED))
     x = torch.ones((batch_size, 3, input_size, input_size)).cuda()
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
-    model_trt=onnx_start_converting(model,x,batch_size,TRT_TRAINED)
+    model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
 
     #validating .....
     #trt_net=TRTModule()

@@ -6,13 +6,12 @@ from torch import nn
 import torch.utils.model_zoo as model_zoo
 import torch.onnx
 
-PATH='/App/data/new_trt.pth'
-TRT_TRAINED='/App/data/resnet50.pth'
 
-def onnx_start_converting(model,input,batch_size,TRT_TRAINED):
+
+def onnx_start_converting(model,input,batch_size,ONNX_TRAINED):
     print('start converting...')
 
-    model_onnx=torch.onnx.export(model,input, "resnet50.onnx",verbose=False)
+    model_onnx=torch.onnx.export(model,input, ONNX_TRAINED,verbose=False)
 
     print('model is converted ')
 
