@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
 
 
-    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True)
+    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
     model.eval()
 
     criterion = nn.CrossEntropyLoss()
