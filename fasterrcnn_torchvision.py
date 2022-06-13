@@ -16,9 +16,9 @@ import torch.optim as optim
 from torchvision import models
 
 
-TORCH_TRAINED= '/App/data/torch_trained_Net128x2.pth'
-TRT_TRAINED='/App/data/trt_trained_Net128x2.pth'
-ONNX_TRAINED="/App/data/onxx_trained_net128x2.onnx"
+TORCH_TRAINED= '/App/data/torch_trained_fasterrcnn.pth'
+TRT_TRAINED='/App/data/trt_trained_fasterrcnn.pth'
+ONNX_TRAINED="/App/data/onxx_trained_fasterrcnn.onnx"
 
 img_dir = 'data/dogsandcats'
 
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
 
     model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
-    model.eval()
+    # model.eval()
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -57,19 +57,19 @@ if __name__ == '__main__':
 
     #trainging ....
 
-    #
-    # epochs=5
-    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    # print('saving checkpoint to ',TORCH_TRAINED)
-    # torch.save(stat_dic, TORCH_TRAINED)
+
+    epochs=5
+    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    print('saving checkpoint to ',TORCH_TRAINED)
+    torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
 
     # model.load_state_dict(torch.load(TORCH_TRAINED))
     x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
-    print('start predection')
-    predictions = model(x)
-    print('result',predictions)
+    # print('start predection')
+    # predictions = model(x)
+    # print('result',predictions)
 
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
@@ -81,8 +81,8 @@ if __name__ == '__main__':
     #
     #overall_check(model,model_path,data,classes)
     # each_class_check(model,model_path,data,classes)
-    #overall_check2(model_trt,val_loader,batch_size)
-    #overall_check2(model, val_loader, batch_size)
+    # overall_check2(model_trt,val_loader,batch_size)
+    overall_check2(model, val_loader, batch_size)
 
     #trt_net.load_state_dict(torch.load(TRT_TRAINED))
     #torch2trt_check (model_trt,model, data)
