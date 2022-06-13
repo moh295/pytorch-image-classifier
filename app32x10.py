@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=4
+    batch_size=128
     model_path = PATH
 
     train_loader, val_loader,classes =cifar_dataloder(batch_size)

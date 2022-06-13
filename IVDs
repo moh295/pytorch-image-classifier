@@ -12,3 +12,6 @@ ssh guillermo@45.158.142.230
 X6CZ8PzSc
 
 
+eval $(ssh-agent);ssh-add /home/guillermo/.ssh/id_ed25519_new
+
+git pull ; docker build . -t simple-classifier; docker run -it --privileged -v /media/workspace/simple-classifier/data:/App/data --shm-size 50G simple-classifier

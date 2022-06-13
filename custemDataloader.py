@@ -14,6 +14,7 @@ import torchvision.transforms as transforms
 # transforms.RandomCrop(224)
 
 def load_data(data_folder, batch_size, phase='train', train_val_split=True, train_ratio=.8):
+    classes = ('cat', 'dog')
     transform_dict = {
         'train': transforms.Compose(
             [transforms.Resize(135),
@@ -40,7 +41,7 @@ def load_data(data_folder, batch_size, phase='train', train_val_split=True, trai
                                                     num_workers=4)
             val_loader = torch.utils.data.DataLoader(data_val, batch_size=batch_size, shuffle=False, drop_last=False,
                                                 num_workers=4)
-            return train_loader, val_loader
+            return train_loader, val_loader ,classes
         else:
             train_loader = torch.utils.data.DataLoader(data, batch_size=batch_size, shuffle=True, drop_last=True,
                                                     num_workers=4)
