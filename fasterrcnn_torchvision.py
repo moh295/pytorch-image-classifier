@@ -57,18 +57,19 @@ if __name__ == '__main__':
 
     #trainging ....
 
-
-    epochs=5
-    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    print('saving checkpoint to ',TORCH_TRAINED)
-    torch.save(stat_dic, TORCH_TRAINED)
+    #
+    # epochs=5
+    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    # print('saving checkpoint to ',TORCH_TRAINED)
+    # torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
 
     # model.load_state_dict(torch.load(TORCH_TRAINED))
-    x = torch.ones((batch_size, 3, input_size, input_size)).cuda()
+    x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
+
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
-    model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
+    #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
 
     #validating .....
     #trt_net=TRTModule()
@@ -77,7 +78,7 @@ if __name__ == '__main__':
     #
     #overall_check(model,model_path,data,classes)
     # each_class_check(model,model_path,data,classes)
-    overall_check2(model_trt,val_loader,batch_size)
+    #overall_check2(model_trt,val_loader,batch_size)
     overall_check2(model, val_loader, batch_size)
 
     #trt_net.load_state_dict(torch.load(TRT_TRAINED))
