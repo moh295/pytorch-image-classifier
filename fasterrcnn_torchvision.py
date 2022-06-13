@@ -67,6 +67,9 @@ if __name__ == '__main__':
 
     # model.load_state_dict(torch.load(TORCH_TRAINED))
     x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
+    print('start predection')
+    predictions = model(x)
+    print('result',predictions)
 
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
@@ -79,7 +82,7 @@ if __name__ == '__main__':
     #overall_check(model,model_path,data,classes)
     # each_class_check(model,model_path,data,classes)
     #overall_check2(model_trt,val_loader,batch_size)
-    overall_check2(model, val_loader, batch_size)
+    #overall_check2(model, val_loader, batch_size)
 
     #trt_net.load_state_dict(torch.load(TRT_TRAINED))
     #torch2trt_check (model_trt,model, data)
