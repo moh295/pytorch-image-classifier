@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
 
     model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
-    # model.eval()
+    model.eval()
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
