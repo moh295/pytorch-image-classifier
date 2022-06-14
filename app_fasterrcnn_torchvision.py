@@ -69,7 +69,8 @@ if __name__ == '__main__':
     # x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
     print('start predection')
     predictions = model(x)
-    print('result',predictions[0])
+    for data in predictions:
+        print('result',data.labels)
 
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
