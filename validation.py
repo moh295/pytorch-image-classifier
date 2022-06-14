@@ -173,8 +173,8 @@ def overall_check3(model,val_loader,batch_size):
             # calculate outputs by running images through the network
             outputs = model(images)
             for data,image in zip(outputs,images):
-                detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(), \
-                                                                              data['labels'].detach().numpy(),data['scores'].detach().numpy()
+                detection_bboxes, detection_classes, detection_probs = data['boxes'].cpu().detach().numpy(), \
+                                                                              data['labels'].cpu().detach().numpy(),data['scores'].cpu().detach().numpy()
                 total += 1
                 if detection_bboxes.size!=0 :
                     if np.amax(detection_probs) >0.7:
