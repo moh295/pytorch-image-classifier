@@ -168,6 +168,9 @@ def overall_check3(model,val_loader,batch_size):
         numpred=0
         start=timer()
         for data in val_loader:
+            if total==1000:
+                break
+
 
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
@@ -194,4 +197,4 @@ def overall_check3(model,val_loader,batch_size):
     end = timer()
     elapsed = timedelta(seconds=end - start)
     print(f'prediction of {numpred*batch_size} instance takes {elapsed}')
-    print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
+    print(f'Accuracy : {100 * correct // total} %')
