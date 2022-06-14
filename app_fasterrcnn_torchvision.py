@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
 
 
-    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=False).to(device)
+    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
     model.eval()
 
     criterion = nn.CrossEntropyLoss()
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     #overall_check(model,model_path,data,classes)
     # each_class_check(model,model_path,data,classes)
     # overall_check2(model_trt,val_loader,batch_size)
-    overall_check2(model, val_loader, batch_size)
+    #overall_check2(model, val_loader, batch_size)
 
     #trt_net.load_state_dict(torch.load(TRT_TRAINED))
     #torch2trt_check (model_trt,model, data)
