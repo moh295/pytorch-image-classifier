@@ -57,19 +57,19 @@ if __name__ == '__main__':
 
     #trainging ....
 
-
-    epochs=5
-    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    print('saving checkpoint to ',TORCH_TRAINED)
-    torch.save(stat_dic, TORCH_TRAINED)
+    #
+    # epochs=5
+    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    # print('saving checkpoint to ',TORCH_TRAINED)
+    # torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
 
     # model.load_state_dict(torch.load(TORCH_TRAINED))
-    x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
-    # print('start predection')
-    # predictions = model(x)
-    # print('result',predictions)
+    # x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
+    print('start predection')
+    predictions = model(x)
+    print('result',predictions)
 
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
