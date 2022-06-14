@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=1
+    batch_size=62
     input_size=320
 
     train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)

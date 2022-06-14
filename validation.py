@@ -196,5 +196,5 @@ def overall_check3(model,val_loader,batch_size):
 
     end = timer()
     elapsed = timedelta(seconds=end - start)
-    print(f'prediction of {numpred*batch_size} instance takes {elapsed}')
-    print(f'Accuracy : {100 * correct // total} %')
+    print(f'prediction of {total} instances takes {elapsed}')
+    # print(f'Accuracy : {100 * correct // total} %')
