@@ -116,6 +116,7 @@ if __name__ == '__main__':
     #validating .....
     #trt_net=TRTModule()
     overall_check3(model, val_loader, batch_size)
+
     # random_check(model,model_path,data,classes)
     #overall_check(model,model_path,data,classes)
     # each_class_check(model,model_path,data,classes)
