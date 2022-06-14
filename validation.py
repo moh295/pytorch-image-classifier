@@ -168,7 +168,7 @@ def overall_check3(model,val_loader,batch_size):
         numpred=0
         start=timer()
         for data in val_loader:
-            if total==1000:
+            if total>=1000:
                 break
 
             total += batch_size
