@@ -15,11 +15,11 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 from validation import overall_check3
-import numpy as np
-from PIL import ImageDraw
-import random
-from bbox import BBox
-import torchvision.transforms as T
+# import numpy as np
+# from PIL import ImageDraw
+# import random
+# from bbox import BBox
+# import torchvision.transforms as T
 
 TORCH_TRAINED= '/App/data/torch_trained_fasterrcnn.pth'
 TRT_TRAINED='/App/data/trt_trained_fasterrcnn.pth'

@@ -1,6 +1,7 @@
 
 import torch
 from utils import imshow
+import numpy as np
 
 # from dataloader import classes,testloader
 import torchvision
@@ -171,17 +172,24 @@ def overall_check3(model,val_loader,batch_size):
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
             outputs = model(images)
+            for data,image in zip(outputs,images):
+                detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(), \
+                                                                              data['labels'].detach().numpy(),data['scores'].detach().numpy()
+                total += 1
+                if detection_bboxes.size!=0 :
+                    if np.amax(detection_probs) >0.7:
+                    # print(np.amax(detection_probs))
+                        numpred += 1
+                        correct +=1
 
-            detection_bboxes, detection_classes, detection_probs = outputs.item()
-            print(detection_probs)
-            # the class with the highest energy is what we choose as prediction
-            detection_probs = torch.max(outputs.data, 1)
-            # print('lable size', labels.size(0),labels.size())
-            if labels.size(0) == batch_size:
+            # # the class with the highest energy is what we choose as prediction
+            # detection_probs = torch.max(outputs.data, 1)
+            # # print('lable size', labels.size(0),labels.size())
+            # if labels.size(0) == batch_size:
+            #
 
-                total += labels.size(0)
-                correct += (detection_probs >0.7).sum().item()
-                numpred += 1
+            #     correct += (detection_probs >0.7).sum().item()
+            #     numpred += 1
 
     end = timer()
     elapsed = timedelta(seconds=end - start)
