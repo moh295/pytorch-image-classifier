@@ -171,9 +171,9 @@ def overall_check3(model,val_loader,batch_size):
             images, labels = data[0].to(device), data[1].to(device)
             # calculate outputs by running images through the network
             outputs = model(images)
-            detection_bboxes, detection_classes, detection_probs = outputs['boxes'].detach().numpy(), \
-                                                                   outputs['labels'].detach().numpy(), outputs[
-                                                                       'scores'].detach().numpy()
+
+            detection_bboxes, detection_classes, detection_probs = outputs.item()
+            print(detection_probs)
             # the class with the highest energy is what we choose as prediction
             detection_probs = torch.max(outputs.data, 1)
             # print('lable size', labels.size(0),labels.size())
