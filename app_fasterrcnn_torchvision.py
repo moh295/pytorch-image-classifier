@@ -70,7 +70,7 @@ if __name__ == '__main__':
     print('start predection')
     predictions = model(x)
     for data in predictions:
-        print('result',data['labels'])
+        print('result',data['score'])
 
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
