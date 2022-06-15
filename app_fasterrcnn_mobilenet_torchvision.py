@@ -34,13 +34,13 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 if __name__ == '__main__':
 
     #loading model
-    model = models.detection.fasterrcnn_resnet50_fpn(pretrained=True).to(device)
+    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
     model.eval()
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
 
-    batch_size=62
+    batch_size=32
     input_size=320
 
     train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
