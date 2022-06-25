@@ -3,7 +3,7 @@
 import torchvision
 
 
-
+import torchvision.transforms as T
 # import matplotlib.pyplot as plt
 # from dataloader import trainloader,classes,batch_size
 import numpy as np
@@ -37,3 +37,13 @@ def torch_model_info(model,optimizer):
     print("Optimizer's state_dict:")
     for var_name in optimizer.state_dict():
         print(var_name, "\t", optimizer.state_dict()[var_name])
+
+def inverse_normalize(tensor, mean, std):
+    for t, m, s in zip(tensor, mean, std):
+        t.mul_(s).add_(m)
+    return tensor
+
+def tensor_to_PIL(tensor,mean,std):
+    image=inverse_normalize(tensor,mean,std)
+    transform = T.ToPILImage()
+    return transform(image)

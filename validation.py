@@ -7,7 +7,13 @@ import numpy as np
 import torchvision
 from timeit import default_timer as timer
 from datetime import timedelta
-
+from PIL import ImageDraw,Image
+import random
+from bbox import BBox
+from utils import tensor_to_PIL
+import cv2
+from matplotlib import cm
+import matplotlib.pyplot as plt
 
 
 
@@ -198,3 +204,43 @@ def overall_check3(model,val_loader,batch_size):
     elapsed = timedelta(seconds=end - start)
     print(f'prediction of {total} instances takes {elapsed}')
     # print(f'Accuracy : {100 * correct // total} %')
+
+def inference_and_save(model,save_dir,images,mean=[0.485, 0.456, 0.406],std= [0.229, 0.224, 0.225]):
+    # apply model on images and save the result
+    scale = 1
+    prob_thresh = 0.7
+    cnt = 1
+    predictions = model(images)
+    path_to_output_image = save_dir
+
+
+    for data, image in zip(predictions, images):
+        # print('result',data['scores'])
+
+        image=tensor_to_PIL(image,mean,std)
+
+
+
+        detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(), \
+                                                               data['labels'].detach().numpy(), data[
+                                                                   'scores'].detach().numpy()
+        detection_bboxes /= scale
+        # print(detection_probs)
+        kept_indices = detection_probs > prob_thresh
+        detection_bboxes = detection_bboxes[kept_indices]
+        detection_classes = detection_classes[kept_indices]
+        detection_probs = detection_probs[kept_indices]
+        draw = ImageDraw.Draw(image)
+
+        for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
+            color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
+            bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
+            # category = dataset_class.LABEL_TO_CATEGORY_DICT[cls]
+            draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
+            # draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
+            draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
+        image.save(path_to_output_image + str(cnt) + '.png')
+        print(f'Output image is saved to {path_to_output_image}{cnt}.png')
+        cnt += 1
+        image.show()
+

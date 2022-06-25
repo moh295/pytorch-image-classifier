@@ -14,12 +14,9 @@ from custemDataloader import load_data
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
-from validation import overall_check3
+from validation import overall_check3 ,inference_and_save
 # import numpy as np
-# from PIL import ImageDraw
-# import random
-# from bbox import BBox
-# import torchvision.transforms as T
+
 
 TORCH_TRAINED= '/App/data/torch_trained_fasterrcnn.pth'
 TRT_TRAINED='/App/data/trt_trained_fasterrcnn.pth'
@@ -40,7 +37,7 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
 
-    batch_size=64
+    batch_size=1
     input_size=320
 
     train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
@@ -71,43 +68,13 @@ if __name__ == '__main__':
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
 
 
-    #apply model on images and save the result
-    # scale = 1
-    # prob_thresh = 0.7
-    # cnt=1
-    # predictions = model(x)
-    # path_to_output_image= 'data/output/image'
-    # for data,image in zip(predictions , x):
-    #     # print('result',data['scores'])
-    #
-    #     transform = T.ToPILImage()
-    #     image = transform(image)
-    #     detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(),\
-    #                                                            data['labels'].detach().numpy(),data['scores'].detach().numpy()
-    #     detection_bboxes /= scale
-    #     # print(detection_probs)
-    #     kept_indices = detection_probs > prob_thresh
-    #     detection_bboxes = detection_bboxes[kept_indices]
-    #     detection_classes = detection_classes[kept_indices]
-    #     detection_probs = detection_probs[kept_indices]
-    #     draw = ImageDraw.Draw(image)
-    #
-    #     for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
-    #         color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
-    #         bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
-    #         # category = dataset_class.LABEL_TO_CATEGORY_DICT[cls]
-    #         draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
-    #         #draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
-    #         draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
-    #     image.save(path_to_output_image+str(cnt)+'.png')
-    #     print(f'Output image is saved to {path_to_output_image}{cnt}.png')
-    #     cnt+=1
-    #
 
 
 
     #validating .....
     #trt_net=TRTModule()
+
+    # inference_and_save(model,'data/output/image',x)
     overall_check3(model, val_loader, batch_size)
 
     # random_check(model,model_path,data,classes)
