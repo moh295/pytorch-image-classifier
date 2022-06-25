@@ -37,7 +37,7 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
 
-    batch_size=62
+    batch_size=32
     print('fuck me',62,'time')
     input_size=320
 
