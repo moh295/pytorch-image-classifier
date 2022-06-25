@@ -11,9 +11,6 @@ from PIL import ImageDraw,Image
 import random
 from bbox import BBox
 from utils import tensor_to_PIL
-import cv2
-from matplotlib import cm
-import matplotlib.pyplot as plt
 
 
 
