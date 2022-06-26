@@ -41,7 +41,7 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
 
-    batch_size=64
+    batch_size=1
     input_size=320
     print('batch size',batch_size)
     train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
