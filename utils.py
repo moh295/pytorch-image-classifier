@@ -43,7 +43,7 @@ def inverse_normalize(tensor, mean, std):
         t.mul_(s).add_(m)
     return tensor
 
-def tensor_to_PIL(tensor,mean,std):
+def tensor_to_PIL(tensor,mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5)):
     image=inverse_normalize(tensor,mean,std)
     transform = T.ToPILImage()
     return transform(image)

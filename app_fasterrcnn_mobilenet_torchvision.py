@@ -16,11 +16,11 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 from validation import overall_check3
+from utils import tensor_to_PIL
+from PIL import ImageDraw
 # import numpy as np
-# from PIL import ImageDraw
-# import random
-# from bbox import BBox
-# import torchvision.transforms as T
+import random
+
 
 TORCH_TRAINED= '/App/data/torch_trained_fasterrcnn.pth'
 TRT_TRAINED='/App/data/trt_trained_fasterrcnn.pth'
@@ -42,23 +42,46 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
 
-    batch_size=15
+    batch_size=1
     input_size=320
     print('batch size',batch_size)
     #train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
 
-    train_loader, val_loader= pascal_voc_loder(batch_size)
+    train_loader, val_loader= pascal_voc_loder(batch_size,input_size)
     # task = Segmentation, output columns: [image, dtype=uint8], [target,dtype=uint8].
 
 
 
 
-
     for d in val_loader:
-        x, labels = d[0].to(device), d[1].to(device)
+        x, labels = d[0][0].to(device), d[1]
         break
-    print('tensor size',x.size(),'lable size',labels.size())
-    print('label',labels)
+    print('x',x)
+    bbox=[]
+    image = tensor_to_PIL(x)
+    draw = ImageDraw.Draw(image)
+    for lb in labels['annotation']['object']:
+        print('labels', lb['bndbox'])
+        box=[]
+        box.append(int(lb['bndbox']['xmin'][0]))
+        box.append(int(lb['bndbox']['ymin'][0]))
+        box.append(int(lb['bndbox']['xmax'][0]))
+        box.append(int(lb['bndbox']['ymax'][0]))
+        bbox.append(box)
+        color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
+        draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline=color)
+
+
+
+    image.show()
+
+
+    # print('bbox=', bbox)
+    # for d in val_loader:
+    #     x, labels = d[0].to(device), d[1].to(device)
+    #     break
+    # print('tensor size',x.size(),'lable size',labels.size())
+    # print('label',labels)
 
 
 
@@ -78,40 +101,6 @@ if __name__ == '__main__':
 
     #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
     #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
-
-
-    #apply model on images and save the result
-    # scale = 1
-    # prob_thresh = 0.7
-    # cnt=1
-    # predictions = model(x)
-    # path_to_output_image= 'data/output/image'
-    # for data,image in zip(predictions , x):
-    #     # print('result',data['scores'])
-    #
-    #     transform = T.ToPILImage()
-    #     image = transform(image)
-    #     detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(),\
-    #                                                            data['labels'].detach().numpy(),data['scores'].detach().numpy()
-    #     detection_bboxes /= scale
-    #     # print(detection_probs)
-    #     kept_indices = detection_probs > prob_thresh
-    #     detection_bboxes = detection_bboxes[kept_indices]
-    #     detection_classes = detection_classes[kept_indices]
-    #     detection_probs = detection_probs[kept_indices]
-    #     draw = ImageDraw.Draw(image)
-    #
-    #     for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
-    #         color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
-    #         bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
-    #         # category = dataset_class.LABEL_TO_CATEGORY_DICT[cls]
-    #         draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
-    #         #draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
-    #         draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
-    #     image.save(path_to_output_image+str(cnt)+'.png')
-    #     print(f'Output image is saved to {path_to_output_image}{cnt}.png')
-    #     cnt+=1
-    #
 
 
 

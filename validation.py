@@ -202,6 +202,50 @@ def overall_check3(model,val_loader,batch_size):
     print(f'prediction of {total} instances takes {elapsed}')
     # print(f'Accuracy : {100 * correct // total} %')
 
+
+def overall_check3(model,val_loader,batch_size):
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+    model.eval()
+    correct = 0
+    total = 0
+    # since we're not training, we don't need to calculate the gradients for our outputs
+    with torch.no_grad():
+        numpred=0
+        start=timer()
+        for data in val_loader:
+            if total>=500:
+                break
+
+            total += batch_size
+            images, labels = data[0].to(device), data[1].to(device)
+            # calculate outputs by running images through the network
+            outputs = model(images)
+            for data,image in zip(outputs,images):
+                detection_bboxes, detection_classes, detection_probs = data['boxes'].cpu().detach().numpy(), \
+                                                                              data['labels'].cpu().detach().numpy(),data['scores'].cpu().detach().numpy()
+
+                if detection_bboxes.size!=0 :
+                    if np.amax(detection_probs) >0.7:
+                    # print(np.amax(detection_probs))
+                        numpred += 1
+                        correct +=1
+
+            # # the class with the highest energy is what we choose as prediction
+            # detection_probs = torch.max(outputs.data, 1)
+            # # print('lable size', labels.size(0),labels.size())
+            # if labels.size(0) == batch_size:
+            #
+
+            #     correct += (detection_probs >0.7).sum().item()
+            #     numpred += 1
+
+    end = timer()
+    elapsed = timedelta(seconds=end - start)
+    print(f'prediction of {total} instances takes {elapsed}')
+    # print(f'Accuracy : {100 * correct // total} %')
+
+
 def inference_and_save(model,save_dir,images,mean=[0.485, 0.456, 0.406],std= [0.229, 0.224, 0.225]):
     # apply model on images and save the result
     scale = 1
