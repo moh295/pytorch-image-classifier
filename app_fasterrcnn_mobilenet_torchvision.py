@@ -11,6 +11,7 @@ from validation import  random_check , overall_check ,each_class_check,torch2trt
 # from convert_wit_onnx import onnx_start_converting
 # from torch2trt import TRTModule
 from custemDataloader import load_data
+from dataloderPascal import pascal_voc_loder
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
@@ -44,7 +45,14 @@ if __name__ == '__main__':
     batch_size=15
     input_size=320
     print('batch size',batch_size)
-    train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
+    #train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
+
+    train_loader, val_loader= pascal_voc_loder(batch_size)
+    # task = Segmentation, output columns: [image, dtype=uint8], [target,dtype=uint8].
+
+
+
+
 
     for d in val_loader:
         x, labels = d[0].to(device), d[1].to(device)
