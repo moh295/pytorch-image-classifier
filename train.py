@@ -1,9 +1,8 @@
 import torch
 from timeit import default_timer as timer
 from datetime import timedelta
-
-from engine import train_one_epoch, evaluate
-from torchvision.datasets.vision.r import
+# from engine import train_one_epoch, evaluate
+# from torchvision.datasets.vision.r import
 
 def start_training(model,epochs,loder,optimizer,criterion):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -18,11 +17,8 @@ def start_training(model,epochs,loder,optimizer,criterion):
     for epoch in range(epochs):  # loop over the dataset multiple times
         #print(epoch+1)
 
-
         running_loss = 0.0
         count=0
-
-
 
         for i, data in enumerate(loder, 0):
             count+=1
@@ -50,6 +46,64 @@ def start_training(model,epochs,loder,optimizer,criterion):
 
     print('Finished Training....duration :',elapsed )
     return model.state_dict()
+
+def start_training2(model,epochs,loder,optimizer,criterion):
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    # Assuming that we are on a CUDA machine, this should print a CUDA device:
+    print(device)
+    model.train()
+    start = timer()
+    elapsed=0
+    print('training started.. ')
+    batches_lenght= len(loder)
+    print('batches length',batches_lenght)  # = dataset_size / batch_size
+    print_loss_each = int(batches_lenght/5)
+    for epoch in range(epochs):  # loop over the dataset multiple times
+        #print(epoch+1)
+
+        running_loss = 0.0
+        count=0
+
+        for i, data in enumerate(loder, 0):
+            count+=1
+
+            #print('batch,epoch',count,epoch+1)
+
+            # get the inputs; data is a list of [inputs, labels]
+           # images, targets = data[0].to(device), data[1].to(device)
+            images = data[0].to(device)
+            print('data[1]', data[1])
+            print('data[1].items()',data[1].items())
+            for t in data[1].items():
+
+                print('t',t)
+
+                for k in t:
+                    print('k',k)
+
+
+            targets=[{k: v.to(device) for k, v in t.items()} for t in data[1]]
+
+            # zero the parameter gradients
+            optimizer.zero_grad()
+
+            # forward + backward + optimize
+            outputs = model(images, targets)
+            loss = criterion(outputs, targets)
+            loss.backward()
+            optimizer.step()
+
+            # print statistics
+            running_loss += loss.item()
+            if int(i % print_loss_each) == int(print_loss_each-1) and i >0:    # print every numbers of mini-batches
+                end = timer()
+                elapsed=timedelta(seconds=end - start)
+                print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / print_loss_each:.3f} elapsed {elapsed}')
+                running_loss = 0.0
+
+    print('Finished Training....duration :',elapsed )
+    return model.state_dict()
+
 
 
 

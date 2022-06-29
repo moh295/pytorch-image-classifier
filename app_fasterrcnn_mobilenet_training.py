@@ -2,7 +2,7 @@
 from utils import check_data_and_lable
 import torch
 from dataloader import cifar_dataloder
-from train import start_training
+from train import start_training,start_training2
 # from Mymodel.nn300x2_v2 import Net300x2_v2
 from Mymodel.nn128x2 import Net128x2
 
@@ -11,7 +11,7 @@ from validation import  random_check , overall_check ,each_class_check,torch2trt
 # from convert_wit_onnx import onnx_start_converting
 # from torch2trt import TRTModule
 from custemDataloader import load_data
-from dataloderPascal import pascal_voc_loder
+
 from VOCloader import dataloader
 import torch.nn as nn
 import torch.optim as optim
@@ -51,36 +51,8 @@ if __name__ == '__main__':
     # train_loader, val_loader= pascal_voc_loder(batch_size,input_size)
     # task = Segmentation, output columns: [image, dtype=uint8], [target,dtype=uint8].
 
-    dataloader()
+    train_loader, trainval_loader, val_loader= dataloader()
 
-    #
-    # for d in val_loader:
-    #     x, labels = d[0][0].to(device), d[1]
-    #     break
-    # print('x',x)
-    # bbox=[]
-    # image = tensor_to_PIL(x)
-    # draw = ImageDraw.Draw(image)
-    # for lb in labels['annotation']['object']:
-    #     print('labels', lb['bndbox'])
-    #     box=[]
-    #     box.append(int(lb['bndbox']['xmin'][0]))
-    #     box.append(int(lb['bndbox']['ymin'][0]))
-    #     box.append(int(lb['bndbox']['xmax'][0]))
-    #     box.append(int(lb['bndbox']['ymax'][0]))
-    #     bbox.append(box)
-    #     color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
-    #     draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline=color)
-    #
-    # image.show()
-
-
-    # print('bbox=', bbox)
-    # for d in val_loader:
-    #     x, labels = d[0].to(device), d[1].to(device)
-    #     break
-    # print('tensor size',x.size(),'lable size',labels.size())
-    # print('label',labels)
 
 
 
@@ -88,7 +60,7 @@ if __name__ == '__main__':
 
     #
     epochs=5
-    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    stat_dic=start_training2(model,epochs,train_loader,optimizer,criterion)
     print('saving checkpoint to ',TORCH_TRAINED)
     torch.save(stat_dic, TORCH_TRAINED)
 
