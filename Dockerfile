@@ -1,7 +1,10 @@
-FROM simple-classifier-base
+FROM simple-classifier
 WORKDIR /App
-RUN pip3 install cython
-RUN pip3 install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+
+# #to dockerbase -- simple-classifier (v1)
+# RUN pip3 install cython
+# RUN pip3 install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+# # end -- simple-classifier (v1)
 
 COPY . /App
 #ENTRYPOINT ["python3","app_fasterrcnn_mobilenet_torchvision.py"]
