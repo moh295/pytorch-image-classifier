@@ -1,8 +1,8 @@
 
-from utils import check_data_and_lable
+from utils_local import check_data_and_lable
 import torch
 from dataloader import cifar_dataloder
-from train import start_training,start_training2
+from train import start_training,obj_detcetion_training
 # from Mymodel.nn300x2_v2 import Net300x2_v2
 from Mymodel.nn128x2 import Net128x2
 
@@ -17,7 +17,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models
 from validation import overall_check3
-from utils import tensor_to_PIL
+from utils_local import tensor_to_PIL
 from PIL import ImageDraw
 # import numpy as np
 import random
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
     #
     epochs=5
-    stat_dic=start_training2(model,epochs,train_loader,optimizer,criterion)
+    stat_dic=obj_detcetion_training(model,epochs,train_loader,val_loader)
     print('saving checkpoint to ',TORCH_TRAINED)
     torch.save(stat_dic, TORCH_TRAINED)
 

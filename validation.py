@@ -1,6 +1,6 @@
 
 import torch
-from utils import imshow
+from utils_local import imshow
 import numpy as np
 
 # from dataloader import classes,testloader
@@ -10,7 +10,7 @@ from datetime import timedelta
 from PIL import ImageDraw,Image
 import random
 from bbox import BBox
-from utils import tensor_to_PIL
+from utils_local import tensor_to_PIL
 
 
 

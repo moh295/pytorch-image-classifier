@@ -1,8 +1,8 @@
 import torch
 from timeit import default_timer as timer
 from datetime import timedelta
-# from engine import train_one_epoch, evaluate
-# from torchvision.datasets.vision.r import
+from engine import train_one_epoch, evaluate
+import utils
 
 def start_training(model,epochs,loder,optimizer,criterion):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -51,7 +51,7 @@ def start_training2(model,epochs,loder,optimizer,criterion):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
     print(device)
-    model.train()
+
     start = timer()
     elapsed=0
     print('training started.. ')
@@ -107,8 +107,35 @@ def start_training2(model,epochs,loder,optimizer,criterion):
 
 
 
-def obj_detcetion_training(model,epochs,loder):
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+def obj_detcetion_training(model,num_epochs,dataset,dataset_test):
+    # train on the GPU or on the CPU, if a GPU is not available
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+
+    # our dataset has two classes only - background and person
+    num_classes = 2
+    # use our dataset and defined transformations
+    # dataset = PennFudanDataset('PennFudanPed', get_transform(train=True))
+    # dataset_test = PennFudanDataset('PennFudanPed', get_transform(train=False))
+
+    # split the dataset in train and test set
+    indices = torch.randperm(len(dataset)).tolist()
+    dataset = torch.utils.data.Subset(dataset, indices[:-50])
+    dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
+
+    # define training and validation data loaders
+    data_loader = torch.utils.data.DataLoader(
+        dataset, batch_size=2, shuffle=True, num_workers=4,
+        collate_fn=utils.collate_fn)
+
+    data_loader_test = torch.utils.data.DataLoader(
+        dataset_test, batch_size=1, shuffle=False, num_workers=4,
+        collate_fn=utils.collate_fn)
+
+    # get the model using our helper function
+    # model = get_model_instance_segmentation(num_classes)
+
+    # move model to the right device
+    model.to(device)
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
@@ -119,9 +146,12 @@ def obj_detcetion_training(model,epochs,loder):
                                                    step_size=3,
                                                    gamma=0.1)
 
-    for epoch in range(epochs):
+    # let's train it for 10 epochs
+
+
+    for epoch in range(num_epochs):
         # train for one epoch, printing every 10 iterations
-        train_one_epoch(model, optimizer, loder, device, epoch, print_freq=10)
+        train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq=10)
         # update the learning rate
         lr_scheduler.step()
         # evaluate on the test dataset
