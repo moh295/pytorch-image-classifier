@@ -2,6 +2,9 @@ import torch
 from timeit import default_timer as timer
 from datetime import timedelta
 
+from engine import train_one_epoch, evaluate
+from torchvision.datasets.vision.r import
+
 def start_training(model,epochs,loder,optimizer,criterion):
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
@@ -48,3 +51,26 @@ def start_training(model,epochs,loder,optimizer,criterion):
     print('Finished Training....duration :',elapsed )
     return model.state_dict()
 
+
+
+def obj_detcetion_training(model,epochs,loder):
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+    # construct an optimizer
+    params = [p for p in model.parameters() if p.requires_grad]
+    optimizer = torch.optim.SGD(params, lr=0.005,
+                                momentum=0.9, weight_decay=0.0005)
+    # and a learning rate scheduler
+    lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
+                                                   step_size=3,
+                                                   gamma=0.1)
+
+    for epoch in range(epochs):
+        # train for one epoch, printing every 10 iterations
+        train_one_epoch(model, optimizer, loder, device, epoch, print_freq=10)
+        # update the learning rate
+        lr_scheduler.step()
+        # evaluate on the test dataset
+        evaluate(model, data_loader_test, device=device)
+
+    print("That's it!")

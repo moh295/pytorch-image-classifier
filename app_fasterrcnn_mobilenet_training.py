@@ -43,7 +43,7 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
 
-    batch_size=1
+    batch_size=5
     input_size=320
     print('batch size',batch_size)
     #train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
@@ -87,10 +87,10 @@ if __name__ == '__main__':
     #trainging ....
 
     #
-    # epochs=5
-    # stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
-    # print('saving checkpoint to ',TORCH_TRAINED)
-    # torch.save(stat_dic, TORCH_TRAINED)
+    epochs=5
+    stat_dic=start_training(model,epochs,train_loader,optimizer,criterion)
+    print('saving checkpoint to ',TORCH_TRAINED)
+    torch.save(stat_dic, TORCH_TRAINED)
 
     #converting...
 
