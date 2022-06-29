@@ -1,11 +1,12 @@
 import os
 import numpy as np
 import torch
+import torch.utils.data
 from PIL import Image
 
 
 class PennFudanDataset(torch.utils.data.Dataset):
-    def __init__(self, root, transforms):
+    def __init__(self, root, transforms=None):
         self.root = root
         self.transforms = transforms
         # load all image files, sorting them to
@@ -14,7 +15,7 @@ class PennFudanDataset(torch.utils.data.Dataset):
         self.masks = list(sorted(os.listdir(os.path.join(root, "PedMasks"))))
 
     def __getitem__(self, idx):
-        # load images and masks
+        # load images ad masks
         img_path = os.path.join(self.root, "PNGImages", self.imgs[idx])
         mask_path = os.path.join(self.root, "PedMasks", self.masks[idx])
         img = Image.open(img_path).convert("RGB")
@@ -22,7 +23,7 @@ class PennFudanDataset(torch.utils.data.Dataset):
         # because each color corresponds to a different instance
         # with 0 being background
         mask = Image.open(mask_path)
-        # convert the PIL Image into a numpy array
+
         mask = np.array(mask)
         # instances are encoded as different colors
         obj_ids = np.unique(mask)
@@ -44,7 +45,6 @@ class PennFudanDataset(torch.utils.data.Dataset):
             ymax = np.max(pos[0])
             boxes.append([xmin, ymin, xmax, ymax])
 
-        # convert everything into a torch.Tensor
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         # there is only one class
         labels = torch.ones((num_objs,), dtype=torch.int64)
