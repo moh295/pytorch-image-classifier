@@ -252,22 +252,24 @@ class VOCDetection(_VOCBase):
 
 
 def dataloader(batch_size=1,input_size=300):
+
+    data_path='./data/VOCdevkit/VOC2007'
     transform = transforms.Compose(
         [
             # transforms.Resize(input_size),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-    train_dataset = VOCDetection(root='./data/VOCdevkit/VOC2007', image_set='train', transform=transform)
+    train_dataset = VOCDetection(root=data_path, image_set='train', transform=transform)
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
                             shuffle=True, num_workers=2)
 
 
-    val_dataset =VOCDetection(root='./data/VOCdevkit/VOC2007', image_set='val',transform=transform)
+    val_dataset =VOCDetection(root=data_path, image_set='val',transform=transform)
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=2)
 
-    trainval_dataset = VOCDetection(root='./data/VOCdevkit/VOC2007', image_set='trainval', transform=transform)
+    trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transform=transform)
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=2)
 

@@ -107,7 +107,7 @@ def start_training2(model,epochs,loder,optimizer,criterion):
 
 
 
-def obj_detcetion_training(model,num_epochs,dataset,dataset_test):
+def obj_detcetion_training(model,num_epochs,data_loader,data_loader_test):
     # train on the GPU or on the CPU, if a GPU is not available
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
@@ -118,18 +118,18 @@ def obj_detcetion_training(model,num_epochs,dataset,dataset_test):
     # dataset_test = PennFudanDataset('PennFudanPed', get_transform(train=False))
 
     # split the dataset in train and test set
-    indices = torch.randperm(len(dataset)).tolist()
-    dataset = torch.utils.data.Subset(dataset, indices[:-50])
-    dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
-
-    # define training and validation data loaders
-    data_loader = torch.utils.data.DataLoader(
-        dataset, batch_size=2, shuffle=True, num_workers=4,
-        collate_fn=utils.collate_fn)
-
-    data_loader_test = torch.utils.data.DataLoader(
-        dataset_test, batch_size=1, shuffle=False, num_workers=4,
-        collate_fn=utils.collate_fn)
+    # indices = torch.randperm(len(dataset)).tolist()
+    # dataset = torch.utils.data.Subset(dataset, indices[:-50])
+    # dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
+    #
+    # # define training and validation data loaders
+    # data_loader = torch.utils.data.DataLoader(
+    #     dataset, batch_size=2, shuffle=True, num_workers=4,
+    #     collate_fn=utils.collate_fn)
+    #
+    # data_loader_test = torch.utils.data.DataLoader(
+    #     dataset_test, batch_size=1, shuffle=False, num_workers=4,
+    #     collate_fn=utils.collate_fn)
 
     # get the model using our helper function
     # model = get_model_instance_segmentation(num_classes)
