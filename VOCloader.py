@@ -18,53 +18,53 @@ from PIL import Image
 from torch.utils.data import DataLoader
 from torchvision import  transforms
 
-
-
-DATASET_YEAR_DICT = {
-    "2012": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar",
-        "filename": "VOCtrainval_11-May-2012.tar",
-        "md5": "6cd6e144f989b92b3379bac3b3de84fd",
-        "base_dir": os.path.join("VOCdevkit", "VOC2012"),
-    },
-    "2011": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2011/VOCtrainval_25-May-2011.tar",
-        "filename": "VOCtrainval_25-May-2011.tar",
-        "md5": "6c3384ef61512963050cb5d687e5bf1e",
-        "base_dir": os.path.join("TrainVal", "VOCdevkit", "VOC2011"),
-    },
-    "2010": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2010/VOCtrainval_03-May-2010.tar",
-        "filename": "VOCtrainval_03-May-2010.tar",
-        "md5": "da459979d0c395079b5c75ee67908abb",
-        "base_dir": os.path.join("VOCdevkit", "VOC2010"),
-    },
-    "2009": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2009/VOCtrainval_11-May-2009.tar",
-        "filename": "VOCtrainval_11-May-2009.tar",
-        "md5": "a3e00b113cfcfebf17e343f59da3caa1",
-        "base_dir": os.path.join("VOCdevkit", "VOC2009"),
-    },
-    "2008": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2008/VOCtrainval_14-Jul-2008.tar",
-        "filename": "VOCtrainval_11-May-2012.tar",
-        "md5": "2629fa636546599198acfcfbfcf1904a",
-        "base_dir": os.path.join("VOCdevkit", "VOC2008"),
-    },
-    "2007": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar",
-        "filename": "VOCtrainval_06-Nov-2007.tar",
-        "md5": "c52e279531787c972589f7e41ab4ae64",
-        "base_dir": os.path.join("VOCdevkit", "VOC2007"),
-    },
-    "2007-test": {
-        "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar",
-        "filename": "VOCtest_06-Nov-2007.tar",
-        "md5": "b6e924de25625d8de591ea690078ad9f",
-        "base_dir": os.path.join("VOCdevkit", "VOC2007"),
-    },
-}
-
+#
+#
+# DATASET_YEAR_DICT = {
+#     "2012": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar",
+#         "filename": "VOCtrainval_11-May-2012.tar",
+#         "md5": "6cd6e144f989b92b3379bac3b3de84fd",
+#         "base_dir": os.path.join("VOCdevkit", "VOC2012"),
+#     },
+#     "2011": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2011/VOCtrainval_25-May-2011.tar",
+#         "filename": "VOCtrainval_25-May-2011.tar",
+#         "md5": "6c3384ef61512963050cb5d687e5bf1e",
+#         "base_dir": os.path.join("TrainVal", "VOCdevkit", "VOC2011"),
+#     },
+#     "2010": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2010/VOCtrainval_03-May-2010.tar",
+#         "filename": "VOCtrainval_03-May-2010.tar",
+#         "md5": "da459979d0c395079b5c75ee67908abb",
+#         "base_dir": os.path.join("VOCdevkit", "VOC2010"),
+#     },
+#     "2009": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2009/VOCtrainval_11-May-2009.tar",
+#         "filename": "VOCtrainval_11-May-2009.tar",
+#         "md5": "a3e00b113cfcfebf17e343f59da3caa1",
+#         "base_dir": os.path.join("VOCdevkit", "VOC2009"),
+#     },
+#     "2008": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2008/VOCtrainval_14-Jul-2008.tar",
+#         "filename": "VOCtrainval_11-May-2012.tar",
+#         "md5": "2629fa636546599198acfcfbfcf1904a",
+#         "base_dir": os.path.join("VOCdevkit", "VOC2008"),
+#     },
+#     "2007": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar",
+#         "filename": "VOCtrainval_06-Nov-2007.tar",
+#         "md5": "c52e279531787c972589f7e41ab4ae64",
+#         "base_dir": os.path.join("VOCdevkit", "VOC2007"),
+#     },
+#     "2007-test": {
+#         "url": "http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar",
+#         "filename": "VOCtest_06-Nov-2007.tar",
+#         "md5": "b6e924de25625d8de591ea690078ad9f",
+#         "base_dir": os.path.join("VOCdevkit", "VOC2007"),
+#     },
+# }
+#
 
 class _VOCBase(VisionDataset):
     _SPLITS_DIR: str
@@ -74,7 +74,7 @@ class _VOCBase(VisionDataset):
     def __init__(
         self,
         root: str,
-        year: str = "2012",
+        # year: str = "2007",
         image_set: str = "train",
         transform: Optional[Callable] = None,
         # target_transform: Optional[Callable] = None,
@@ -82,37 +82,37 @@ class _VOCBase(VisionDataset):
     ):
         # super().__init__(root, transforms, transform, target_transform)
         super().__init__(root,transform)
-        if year == "2007-test":
-            if image_set == "test":
-                warnings.warn(
-                    "Accessing the test image set of the year 2007 with year='2007-test' is deprecated "
-                    "since 0.12 and will be removed in 0.14. "
-                    "Please use the combination year='2007' and image_set='test' instead."
-                )
-                year = "2007"
-            else:
-                raise ValueError(
-                    "In the test image set of the year 2007 only image_set='test' is allowed. "
-                    "For all other image sets use year='2007' instead."
-                )
-        self.year = year
+        # if year == "2007-test":
+        #     if image_set == "test":
+        #         warnings.warn(
+        #             "Accessing the test image set of the year 2007 with year='2007-test' is deprecated "
+        #             "since 0.12 and will be removed in 0.14. "
+        #             "Please use the combination year='2007' and image_set='test' instead."
+        #         )
+        #         year = "2007"
+        #     else:
+        #         raise ValueError(
+        #             "In the test image set of the year 2007 only image_set='test' is allowed. "
+        #             "For all other image sets use year='2007' instead."
+        #         )
+        # self.year = year
 
         valid_image_sets = ["train", "trainval", "val"]
-        if year == "2007":
-            valid_image_sets.append("test")
+        # if year == "2007":
+        #     valid_image_sets.append("test")
         self.image_set = verify_str_arg(image_set, "image_set", valid_image_sets)
 
-        key = "2007-test" if year == "2007" and image_set == "test" else year
-        dataset_year_dict = DATASET_YEAR_DICT[key]
+        # key = "2007-test" if year == "2007" and image_set == "test" else year
+        # dataset_year_dict = DATASET_YEAR_DICT[key]
 
-        self.url = dataset_year_dict["url"]
-        self.filename = dataset_year_dict["filename"]
-        self.md5 = dataset_year_dict["md5"]
+        # self.url = dataset_year_dict["url"]
+        # self.filename = dataset_year_dict["filename"]
+        # self.md5 = dataset_year_dict["md5"]
+        #
+        # base_dir = dataset_year_dict["base_dir"]
+        # voc_root = os.path.join(self.root, base_dir)
 
-        base_dir = dataset_year_dict["base_dir"]
-        voc_root = os.path.join(self.root, base_dir)
-
-
+        voc_root=self.root
         if not os.path.isdir(voc_root):
             raise RuntimeError("Dataset not found or corrupted. You can use download=True to download it")
 
@@ -258,16 +258,16 @@ def dataloader(batch_size=1,input_size=300):
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-    train_dataset = VOCDetection(root='./data', year='2007', image_set='train', transform=transform)
+    train_dataset = VOCDetection(root='./data', image_set='train', transform=transform)
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
                             shuffle=True, num_workers=2)
 
 
-    val_dataset =VOCDetection(root='./data', year='2007', image_set='val',transform=transform)
+    val_dataset =VOCDetection(root='./data', image_set='val',transform=transform)
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=2)
 
-    trainval_dataset = VOCDetection(root='./data', year='2007', image_set='trainval', transform=transform)
+    trainval_dataset = VOCDetection(root='./data', image_set='trainval', transform=transform)
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=2)
 
