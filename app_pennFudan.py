@@ -51,7 +51,7 @@ if __name__ == '__main__':
     # img.show()
     dataset_path='data/PennFudanPed/'
     dataset = PennFudanDataset(dataset_path)
-    print(dataset[0])
+    print('raw dataset',dataset[0])
 
 
     #test forword
@@ -62,6 +62,7 @@ if __name__ == '__main__':
         dataset, batch_size=2, shuffle=True, num_workers=4,
         collate_fn=utils.collate_fn
     )
+    print('data_loader',data_loader)
     # For Training
     images, targets = next(iter(data_loader))
     images = list(image for image in images)

@@ -23,8 +23,18 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
 
         lr_scheduler = utils.warmup_lr_scheduler(optimizer, warmup_iters, warmup_factor)
 
+    print('images and targets',)
+
     for images, targets in metric_logger.log_every(data_loader, print_freq, header):
+        print('images and targets',targets)
         images = list(image.to(device) for image in images)
+        # for t in targets:
+        #    print('t',t)
+
+        for k, v in targets.items():
+           s={k:v}
+           print('s',s)
+
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
         loss_dict = model(images, targets)

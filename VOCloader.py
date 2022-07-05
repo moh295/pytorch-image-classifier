@@ -16,7 +16,20 @@ from typing import Any, Callable, Dict, Optional, Tuple, List
 from PIL import Image
 
 from torch.utils.data import DataLoader
-from torchvision import  transforms
+# from torchvision import  transforms
+import transforms as T
+
+
+
+def get_transform(train):
+    transforms = []
+    # converts the image, a PIL image, into a PyTorch Tensor
+    transforms.append(T.ToTensor())
+    if train:
+        # during training, randomly flip the training images
+        # and ground-truth for data augmentation
+        transforms.append(T.RandomHorizontalFlip(0.5))
+    return T.Compose(transforms)
 
 #
 #
@@ -133,36 +146,36 @@ class _VOCBase(VisionDataset):
         return len(self.images)
 
 
-
-class VOCSegmentation(_VOCBase):
-
-
-    _SPLITS_DIR = "Segmentation"
-    _TARGET_DIR = "SegmentationClass"
-    _TARGET_FILE_EXT = ".png"
-
-    @property
-    def masks(self) -> List[str]:
-        return self.targets
-
-
-    def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        """
-        Args:
-            index (int): Index
-
-        Returns:
-            tuple: (image, target) where target is the image segmentation.
-        """
-        img = Image.open(self.images[index]).convert("RGB")
-        target = Image.open(self.masks[index])
-
-        if self.transforms is not None:
-            img = self.transforms(img)
-
-        return img, target
-
-
+#
+# class VOCSegmentation(_VOCBase):
+#
+#
+#     _SPLITS_DIR = "Segmentation"
+#     _TARGET_DIR = "SegmentationClass"
+#     _TARGET_FILE_EXT = ".png"
+#
+#     @property
+#     def masks(self) -> List[str]:
+#         return self.targets
+#
+#
+#     def __getitem__(self, index: int) -> Tuple[Any, Any]:
+#         """
+#         Args:
+#             index (int): Index
+#
+#         Returns:
+#             tuple: (image, target) where target is the image segmentation.
+#         """
+#         img = Image.open(self.images[index]).convert("RGB")
+#         target = Image.open(self.masks[index])
+#
+#         if self.transforms is not None:
+#             img = self.transforms(img)
+#
+#         return img, target
+#
+#
 
 
 class VOCDetection(_VOCBase):
@@ -190,7 +203,7 @@ class VOCDetection(_VOCBase):
         labels=[]
         labels_dict=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','chair','cow','diningtable','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
         for lb in target_dict['annotation']['object']:
-            print('lb', lb)
+            # print('lb', lb)
             #  print('hand side', lb['handside'])
             # print(lb['name'])
 
@@ -226,7 +239,8 @@ class VOCDetection(_VOCBase):
         target["labels"] = labels
 
         if self.transforms is not None:
-            img = self.transforms(img)
+            img, target = self.transforms(img, target)
+
 
         return img, target
 
@@ -254,22 +268,22 @@ class VOCDetection(_VOCBase):
 def dataloader(batch_size=1,input_size=300):
 
     data_path='./data/VOCdevkit/VOC2007'
-    transform = transforms.Compose(
-        [
-            # transforms.Resize(input_size),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    # transform = transforms.Compose(
+    #     [
+    #         # transforms.Resize(input_size),
+    #         transforms.ToTensor(),
+    #         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-    train_dataset = VOCDetection(root=data_path, image_set='train', transform=transform)
+    train_dataset = VOCDetection(root=data_path, image_set='train', transform=get_transform(train=True))
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
                             shuffle=True, num_workers=2)
 
 
-    val_dataset =VOCDetection(root=data_path, image_set='val',transform=transform)
+    val_dataset =VOCDetection(root=data_path, image_set='val',transform=get_transform(train=True))
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=2)
 
-    trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transform=transform)
+    trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transform=get_transform(train=True))
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=2)
 
