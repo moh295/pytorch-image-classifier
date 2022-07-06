@@ -206,7 +206,8 @@ class VOCDetection(_VOCBase):
         target_dict = self.parse_voc_xml(ET_parse(self.annotations[index]).getroot())
         boxes=[]
         labels=[]
-        labels_dict=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','dog','chair','cow','diningtable','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
+        #labels_dict=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','dog','chair','cow','diningtable','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
+        labels_dict = ['hand','targetobject']
         for lb in target_dict['annotation']['object']:
             # print('lb', lb)
             #  print('hand side', lb['handside'])
