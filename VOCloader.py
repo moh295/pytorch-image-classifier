@@ -234,7 +234,7 @@ class VOCDetection(_VOCBase):
             box.append(int(lb['bndbox']['xmax']))
             box.append(int(lb['bndbox']['ymax']))
             boxes.append(box)
-
+        image_id = torch.tensor([index])
         # convert everything into a torch.Tensor
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         # there is only one class
@@ -243,6 +243,7 @@ class VOCDetection(_VOCBase):
         target = {}
         target["boxes"] = boxes
         target["labels"] = labels
+        target["image_id"] = image_id
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
