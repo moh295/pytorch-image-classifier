@@ -46,6 +46,7 @@ class PennFudanDataset(torch.utils.data.Dataset):
             boxes.append([xmin, ymin, xmax, ymax])
 
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
+
         # there is only one class
         labels = torch.ones((num_objs,), dtype=torch.int64)
         masks = torch.as_tensor(masks, dtype=torch.uint8)
@@ -65,6 +66,7 @@ class PennFudanDataset(torch.utils.data.Dataset):
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
+            print('target after transorm ',type(target),target)
 
         return img, target
 

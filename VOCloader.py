@@ -18,6 +18,7 @@ from PIL import Image
 from torch.utils.data import DataLoader
 # from torchvision import  transforms
 import transforms as T
+import utils
 
 
 
@@ -89,12 +90,16 @@ class _VOCBase(VisionDataset):
         root: str,
         # year: str = "2007",
         image_set: str = "train",
-        transform: Optional[Callable] = None,
+
+
+        # transform: Optional[Callable] = None,
+
         # target_transform: Optional[Callable] = None,
-        # transforms: Optional[Callable] = None,
+        transforms: Optional[Callable] = None,
     ):
         # super().__init__(root, transforms, transform, target_transform)
-        super().__init__(root,transform)
+        super().__init__(root,transforms)
+
         # if year == "2007-test":
         #     if image_set == "test":
         #         warnings.warn(
@@ -201,20 +206,23 @@ class VOCDetection(_VOCBase):
         target_dict = self.parse_voc_xml(ET_parse(self.annotations[index]).getroot())
         boxes=[]
         labels=[]
-        labels_dict=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','chair','cow','diningtable','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
+        labels_dict=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','dog','chair','cow','diningtable','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
         for lb in target_dict['annotation']['object']:
             # print('lb', lb)
             #  print('hand side', lb['handside'])
             # print(lb['name'])
 
             # print('label',lb['name'])
-            id=0
-            for name in labels_dict:
-                if name==lb['name']:
-                    labels.append(id)
-                    break
-                else: id+=1
-
+            id=[i for i in range(len(labels_dict))]
+            for i in range(len(labels_dict)):
+                if labels_dict[i]==lb['name']:
+                    labels.append(id[i])
+            if len(labels):
+                # print('pass',lb['name'])
+                pass
+            else:
+                print('empty label ')
+                print('on',lb['name'])
 
 
             # if obj == 'hand':
@@ -227,12 +235,10 @@ class VOCDetection(_VOCBase):
             box.append(int(lb['bndbox']['ymax']))
             boxes.append(box)
 
-
         # convert everything into a torch.Tensor
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         # there is only one class
-        labels = torch.as_tensor((labels), dtype=torch.int64)
-
+        labels = torch.as_tensor(labels, dtype=torch.int64)
 
         target = {}
         target["boxes"] = boxes
@@ -240,6 +246,7 @@ class VOCDetection(_VOCBase):
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
+
 
 
         return img, target
@@ -274,20 +281,18 @@ def dataloader(batch_size=1,input_size=300):
     #         transforms.ToTensor(),
     #         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-    train_dataset = VOCDetection(root=data_path, image_set='train', transform=get_transform(train=True))
+    train_dataset = VOCDetection(root=data_path, image_set='train', transforms=get_transform(train=True))
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
-                            shuffle=True, num_workers=2)
+                            shuffle=True, num_workers=4,collate_fn=utils.collate_fn)
 
 
-    val_dataset =VOCDetection(root=data_path, image_set='val',transform=get_transform(train=True))
+    val_dataset =VOCDetection(root=data_path, image_set='val',transforms=get_transform(train=True))
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
-                            shuffle=False, num_workers=2)
+                            shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
 
-    trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transform=get_transform(train=True))
+    trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transforms=get_transform(train=True))
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
-                            shuffle=False, num_workers=2)
-
-    print('val_dataset',val_dataset[0])
+                            shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
 
 
     return train_loader,trainval_loader ,val_loader
