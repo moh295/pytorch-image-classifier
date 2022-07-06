@@ -213,7 +213,7 @@ class VOCDetection(_VOCBase):
             # print(lb['name'])
 
             # print('label',lb['name'])
-            id=[i for i in range(len(1,labels_dict))]
+            id=[i for i in range(1,len(labels_dict))]
             for i in range(len(labels_dict)):
                 if labels_dict[i]==lb['name']:
                     labels.append(id[i])
