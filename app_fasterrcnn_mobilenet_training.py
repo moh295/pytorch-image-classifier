@@ -59,7 +59,7 @@ if __name__ == '__main__':
     #trainging ....
 
     #
-    epochs=5
+    epochs=20
     stat_dic=obj_detcetion_training(model,epochs,train_loader,val_loader)
     print('saving checkpoint to ',TORCH_TRAINED)
     torch.save(stat_dic, TORCH_TRAINED)
