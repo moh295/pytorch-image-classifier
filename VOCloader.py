@@ -213,7 +213,7 @@ class VOCDetection(_VOCBase):
             # print(lb['name'])
 
             # print('label',lb['name'])
-            id=[i for i in range(len(labels_dict))]
+            id=[i for i in range(len(1,labels_dict))]
             for i in range(len(labels_dict)):
                 if labels_dict[i]==lb['name']:
                     labels.append(id[i])
@@ -240,12 +240,14 @@ class VOCDetection(_VOCBase):
         # there is only one class
         labels = torch.as_tensor(labels, dtype=torch.int64)
         area = (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0])
+        # suppose all instances are not crowd
+        iscrowd = torch.zeros(labels, dtype=torch.int64)
         target = {}
         target["boxes"] = boxes
         target["labels"] = labels
         target["image_id"] = image_id
         target["area"] = area
-
+        target["iscrowd"] = iscrowd
         if self.transforms is not None:
             img, target = self.transforms(img, target)
 
