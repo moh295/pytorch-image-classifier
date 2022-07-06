@@ -211,7 +211,6 @@ class VOCDetection(_VOCBase):
             # print('lb', lb)
             #  print('hand side', lb['handside'])
             # print(lb['name'])
-
             # print('label',lb['name'])
             id=[i for i in range(1,len(labels_dict))]
             for i in range(len(labels_dict)):
@@ -223,8 +222,6 @@ class VOCDetection(_VOCBase):
             else:
                 print('empty label ')
                 print('on',lb['name'])
-
-
             # if obj == 'hand':
             #     print('hand side', lb['handside'])
             # print('labels', lb['bndbox'])
@@ -250,12 +247,7 @@ class VOCDetection(_VOCBase):
         target["iscrowd"] = iscrowd
         if self.transforms is not None:
             img, target = self.transforms(img, target)
-
-
-
         return img, target
-
-
     @staticmethod
     def parse_voc_xml(node: ET_Element) -> Dict[str, Any]:
         voc_dict: Dict[str, Any] = {}
@@ -278,7 +270,8 @@ class VOCDetection(_VOCBase):
 
 def dataloader(batch_size=1,input_size=300):
 
-    data_path='./data/VOCdevkit/VOC2007'
+    #data_path='./data/VOCdevkit/VOC2007'
+    data_path = './data/VOCdevkit2007_handobj_100K/VOC2007'
     # transform = transforms.Compose(
     #     [
     #         # transforms.Resize(input_size),
@@ -288,8 +281,6 @@ def dataloader(batch_size=1,input_size=300):
     train_dataset = VOCDetection(root=data_path, image_set='train', transforms=get_transform(train=True))
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
                             shuffle=True, num_workers=4,collate_fn=utils.collate_fn)
-
-
     val_dataset =VOCDetection(root=data_path, image_set='val',transforms=get_transform(train=True))
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
@@ -297,8 +288,6 @@ def dataloader(batch_size=1,input_size=300):
     trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transforms=get_transform(train=True))
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
-
-
     return train_loader,trainval_loader ,val_loader
     # val_loader = DataLoader(val_dataset, batch_size=batch_size,shuffle=True, num_workers=2)
     # train_dataset = VOCDetection(root='./data', year='2007', image_set='train',transform=transform)
