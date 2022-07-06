@@ -241,7 +241,7 @@ class VOCDetection(_VOCBase):
         labels = torch.as_tensor(labels, dtype=torch.int64)
         area = (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0])
         # suppose all instances are not crowd
-        iscrowd = torch.zeros((len(labels_dict),), dtype=torch.int64)
+        iscrowd = torch.zeros((len(labels),), dtype=torch.int64)
         target = {}
         target["boxes"] = boxes
         target["labels"] = labels
