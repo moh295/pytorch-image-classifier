@@ -34,7 +34,6 @@ img_dir = 'data/dogsandcats'
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == '__main__':
-
     #loading model
     model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
     # model = models.detection.fasterrcnn_mobilenet_v3_large_fpn(pretrained=True).to(device)
@@ -42,7 +41,6 @@ if __name__ == '__main__':
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     #loading/checking data....
-
     batch_size=5
     input_size=320
     print('batch size',batch_size)
@@ -50,10 +48,7 @@ if __name__ == '__main__':
 
     # train_loader, val_loader= pascal_voc_loder(batch_size,input_size)
     # task = Segmentation, output columns: [image, dtype=uint8], [target,dtype=uint8].
-
     train_loader, trainval_loader, val_loader= dataloader()
-
-
 
 
     #trainging ....
