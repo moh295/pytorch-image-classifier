@@ -239,11 +239,12 @@ class VOCDetection(_VOCBase):
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         # there is only one class
         labels = torch.as_tensor(labels, dtype=torch.int64)
-
+        area = (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0])
         target = {}
         target["boxes"] = boxes
         target["labels"] = labels
         target["image_id"] = image_id
+        target["area"] = area
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
