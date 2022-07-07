@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
     #
     epochs=20
-    stat_dic=obj_detcetion_training(model,epochs,train_loader,val_loader)
+    print_freq=100
+    stat_dic=obj_detcetion_training(model,epochs,train_loader,val_loader,print_freq)
     print('saving checkpoint to ',TORCH_TRAINED)
     torch.save(stat_dic, TORCH_TRAINED)
 

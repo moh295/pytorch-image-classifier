@@ -227,10 +227,10 @@ class VOCDetection(_VOCBase):
             #     print('hand side', lb['handside'])
             # print('labels', lb['bndbox'])
             box = [None]*4
-            xmin=lb['bndbox']['xmin']
-            ymin=lb['bndbox']['ymin']
-            xmax=lb['bndbox']['xmax']
-            ymax=lb['bndbox']['ymax']
+            xmin = int(lb['bndbox']['xmin'])
+            ymin = int(lb['bndbox']['ymin'])
+            xmax = int(lb['bndbox']['xmax'])
+            ymax = int(lb['bndbox']['ymax'])
             box[0]=xmin
             box[1]=ymin
             box[2]=(xmax if xmax-xmin>0 else xmin+1)
