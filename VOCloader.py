@@ -284,7 +284,10 @@ def dataloader(batch_size=1,input_size=300):
     #         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
     train_dataset = VOCDetection(root=data_path, image_set='train', transforms=get_transform(train=True))
-    train_loader = DataLoader(train_dataset, batch_size=batch_size,
+    train_subset=list(range(0,len(train_dataset)/2))
+    train_subset=torch.utils.data.Subset(train_dataset,train_subset)
+
+    train_loader = DataLoader(train_subset, batch_size=batch_size,
                             shuffle=True, num_workers=4,collate_fn=utils.collate_fn)
     val_dataset =VOCDetection(root=data_path, image_set='val',transforms=get_transform(train=True))
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
@@ -294,7 +297,4 @@ def dataloader(batch_size=1,input_size=300):
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
     return train_loader,trainval_loader ,val_loader
-    # val_loader = DataLoader(val_dataset, batch_size=batch_size,shuffle=True, num_workers=2)
-    # train_dataset = VOCDetection(root='./data', year='2007', image_set='train',transform=transform)
-    # train_loader = DataLoader(train_dataset, batch_size=batch_size,
-    # shuffle=True, num_workers=2)
+
