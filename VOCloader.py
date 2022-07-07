@@ -226,7 +226,7 @@ class VOCDetection(_VOCBase):
             # if obj == 'hand':
             #     print('hand side', lb['handside'])
             # print('labels', lb['bndbox'])
-            box = []*4
+            box = [None]*4
             xmin=lb['bndbox']['xmin']
             ymin=lb['bndbox']['ymin']
             xmax=lb['bndbox']['xmax']
