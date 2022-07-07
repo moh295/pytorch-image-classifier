@@ -226,11 +226,15 @@ class VOCDetection(_VOCBase):
             # if obj == 'hand':
             #     print('hand side', lb['handside'])
             # print('labels', lb['bndbox'])
-            box = []
-            box.append(int(lb['bndbox']['xmin']))
-            box.append(int(lb['bndbox']['ymin']))
-            box.append(int(lb['bndbox']['xmax']))
-            box.append(int(lb['bndbox']['ymax']))
+            box = []*4
+            xmin=lb['bndbox']['xmin']
+            ymin=lb['bndbox']['ymin']
+            xmax=lb['bndbox']['xmax']
+            ymax=lb['bndbox']['ymax']
+            box[0]=xmin
+            box[1]=ymin
+            box[2]=(xmax if xmax-xmin>0 else xmin+1)
+            box[3]=(ymax if ymax-ymin>0 else ymin+1)
             boxes.append(box)
         image_id = torch.tensor([index])
         # convert everything into a torch.Tensor
