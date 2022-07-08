@@ -2,7 +2,7 @@
 import torch
 from train import start_training,obj_detcetion_training
 
-from validation import  inference_and_save_mobilnet
+from validation import  inference_and_save_mobilnet_full_data
 # from convert import start_converting
 # from convert_wit_onnx import onnx_start_converting
 # from torch2trt import TRTModule
@@ -80,4 +80,4 @@ if __name__ == '__main__':
 
     #for all validation dataset
 
-    inference_and_save_mobilnet(model, '/App/data/output/', val_loader, labels_dict)
+    inference_and_save_mobilnet_full_data(model, '/App/data/output/', val_loader, labels_dict)
