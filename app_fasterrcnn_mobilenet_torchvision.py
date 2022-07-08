@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=1
+    batch_size=30
     input_size=320
     print('batch size',batch_size)
 
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     # targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
 
-    inference_and_save_mobilnet(model,'/App/data/',images)
+    inference_and_save_mobilnet(model,'/App/data/output/',images)
