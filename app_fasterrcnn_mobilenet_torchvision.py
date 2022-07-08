@@ -1,26 +1,16 @@
 
-from utils_local import check_data_and_lable
 import torch
-from dataloader import cifar_dataloder
 from train import start_training,obj_detcetion_training
-# from Mymodel.nn300x2_v2 import Net300x2_v2
-from Mymodel.nn128x2 import Net128x2
 
-from validation import  random_check , overall_check ,each_class_check,torch2trt_check,overall_check2
+from validation import  inference_and_save_mobilnet
 # from convert import start_converting
 # from convert_wit_onnx import onnx_start_converting
 # from torch2trt import TRTModule
-from custemDataloader import load_data
+
 
 from VOCloader import dataloader
-import torch.nn as nn
-import torch.optim as optim
+
 from torchvision import models
-from validation import overall_check3
-from utils_local import tensor_to_PIL
-from PIL import ImageDraw
-# import numpy as np
-import random
 
 
 TORCH_TRAINED= '/App/data/torch_trained_fasterrcnn.pth'
@@ -77,6 +67,10 @@ if __name__ == '__main__':
     # model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
 
     # validating .....
+    for d in val_loader:
+        images, labels = d[0].to(device), d[1].to(device)
+        break
+    print('tensor size',images.size(),'lable size',labels.size())
+    print('label',labels)
 
-
-
+    inference_and_save_mobilnet(model,'/App/data/',images)
