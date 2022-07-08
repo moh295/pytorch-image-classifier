@@ -292,9 +292,7 @@ def inference_and_save_mobilnet(model,save_dir,images,mean=[0.485, 0.456, 0.406]
     for data, image in zip(predictions, images):
         # print('result',data['scores'])
 
-        image=tensor_to_PIL(image,mean,std)
-
-
+        image=tensor_to_PIL(image,normlized=False)
 
         detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(), \
                                                                data['labels'].detach().numpy(), data[
@@ -317,5 +315,5 @@ def inference_and_save_mobilnet(model,save_dir,images,mean=[0.485, 0.456, 0.406]
         image.save(path_to_output_image + str(cnt) + '.png')
         print(f'Output image is saved to {path_to_output_image}{cnt}.png')
         cnt += 1
-        image.show()
+        # image.show()
 
