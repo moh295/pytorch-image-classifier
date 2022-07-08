@@ -27,10 +27,10 @@ if __name__ == '__main__':
 
     #loading model
 
-    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=True).to(device)
-
-    model.eval()
+    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=False).to(device)
     model = model.load_state_dict(torch.load(TORCH_TRAINED))
+    model.eval()
+
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
