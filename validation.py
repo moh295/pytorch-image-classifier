@@ -373,6 +373,6 @@ def inference_and_save_mobilnet_full_data(model,save_dir,dataloder,labels_dict,m
         #
 
     end = timer()
-    elapsed = timedelta(seconds=end)
+    elapsed = timedelta(seconds=end-start)
     print(f'full prediction process of {cnt-1} images, takes {elapsed}')
 
