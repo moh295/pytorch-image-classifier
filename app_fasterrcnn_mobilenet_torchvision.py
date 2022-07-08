@@ -27,8 +27,8 @@ if __name__ == '__main__':
 
     #loading model
 
-    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=False).to(device)
-    model = model.load_state_dict(torch.load(TORCH_TRAINED))
+    model = models.detection.fasterrcnn_mobilenet_v3_large_320_fpn(pretrained=False)
+    model = model.load_state_dict(torch.load(TORCH_TRAINED)).to(device)
     model.eval()
 
 
