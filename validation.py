@@ -283,7 +283,7 @@ def inference_and_save(model,save_dir,images,mean=[0.485, 0.456, 0.406],std= [0.
 def inference_and_save_mobilnet(model,save_dir,images,mean=[0.485, 0.456, 0.406],std= [0.229, 0.224, 0.225]):
     # apply model on images and save the result
     scale = 1
-    prob_thresh = 0.7
+    prob_thresh = 0.58
     cnt = 1
     start=timer()
     predictions = model(images)
@@ -312,6 +312,7 @@ def inference_and_save_mobilnet(model,save_dir,images,mean=[0.485, 0.456, 0.406]
         for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
             color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
             bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
+            print('label',cls)
             # category = dataset_class.LABEL_TO_CATEGORY_DICT[cls]
             draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
             # draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
