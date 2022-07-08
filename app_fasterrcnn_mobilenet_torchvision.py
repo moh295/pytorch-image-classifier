@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=30
+    batch_size=1
     input_size=320
     print('batch size',batch_size)
 
