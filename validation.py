@@ -255,9 +255,9 @@ def inference_and_save(model,save_dir,images,mean=[0.485, 0.456, 0.406],std= [0.
 
 
 
-        detection_bboxes, detection_classes, detection_probs = data['boxes'].cpu().detach().numpy(), \
-                                                               data['labels'].cpu().detach().numpy(), data[
-                                                                   'scores'].cpu().detach().numpy()
+        detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(), \
+                                                               data['labels'].detach().numpy(), data[
+                                                                   'scores'].detach().numpy()
         detection_bboxes /= scale
         # print(detection_probs)
         kept_indices = detection_probs > prob_thresh
@@ -294,9 +294,9 @@ def inference_and_save_mobilnet(model,save_dir,images,mean=[0.485, 0.456, 0.406]
 
         image=tensor_to_PIL(image,normlized=False)
 
-        detection_bboxes, detection_classes, detection_probs = data['boxes'].detach().numpy(), \
-                                                               data['labels'].detach().numpy(), data[
-                                                                   'scores'].detach().numpy()
+        detection_bboxes, detection_classes, detection_probs = data['boxes'].cpu().detach().numpy(), \
+                                                               data['labels'].cpu().detach().numpy(), data[
+                                                                   'scores'].cpu().detach().numpy()
         detection_bboxes /= scale
         # print(detection_probs)
         kept_indices = detection_probs > prob_thresh
