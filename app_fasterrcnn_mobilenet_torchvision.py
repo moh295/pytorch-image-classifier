@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     # validating .....
     for d in val_loader:
-        images, labels = d[0].to(device), d[1]
+        images= d[0]
         break
     print('tensor size',images.size(),'lable size',labels.size())
     print('label',labels)
