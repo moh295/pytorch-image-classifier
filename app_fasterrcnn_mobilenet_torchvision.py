@@ -68,15 +68,16 @@ if __name__ == '__main__':
     # model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
 
     # validating .....
-    for d in val_loader:
-        images= d[0]
-        break
 
+    #for one portion of data
 
-    images = list(image.to(device) for image in images)
-    # print('tensor size', images.size)
+    # for d in val_loader:
+    #     images= d[0]
+    #     break
     #
-    # targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
+    # images = list(image.to(device) for image in images)
+    # inference_and_save_mobilnet(model,'/App/data/output/',images,labels_dict)
 
+    #for all validation dataset
 
-    inference_and_save_mobilnet(model,'/App/data/output/',images,labels_dict)
+    inference_and_save_mobilnet(model, '/App/data/output/', val_loader, labels_dict)

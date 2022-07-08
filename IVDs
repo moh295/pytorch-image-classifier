@@ -16,7 +16,7 @@ screen -dRaA -S torch
 Finished Training....duration : 12:26:33.447822
 saving checkpoint to  /App/data/torch_trained_fasterrcnn.pth
 
-rm images.zip; zip -r images.zip output;aws s3 cp images.zip s3://systemimages;rm output/*.png;
+rm images.zip; zip -r images.zip output;aws s3 cp images.zip s3://systemimages;rm output/*.png
 
 
 
