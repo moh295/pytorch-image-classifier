@@ -185,8 +185,9 @@ def dataloader(batch_size=1,input_size=300):
     val_dataset =VOCDetection(root=data_path, image_set='val',transforms=get_transform(train=True))
     val_loader = DataLoader(val_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
-
+    print('validation set length', len(val_dataset))
     trainval_dataset = VOCDetection(root=data_path, image_set='trainval', transforms=get_transform(train=True))
+
     trainval_loader = DataLoader(trainval_dataset, batch_size=batch_size,
                             shuffle=False, num_workers=4,collate_fn=utils.collate_fn)
     return train_loader,trainval_loader ,val_loader
