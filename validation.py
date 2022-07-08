@@ -285,11 +285,12 @@ def inference_and_save_mobilnet(model,save_dir,images,labels_dict,mean=[0.485, 0
     scale = 1
     prob_thresh = 0.58
     cnt = 1
+    print('prediction started')
     start=timer()
     predictions = model(images)
     end = timer()
     elapsed = timedelta(seconds=end - start)
-    print(f'predction takes {elapsed}')
+    print(f'prediction takes {elapsed}')
     path_to_output_image = save_dir
 
 
@@ -315,7 +316,7 @@ def inference_and_save_mobilnet(model,save_dir,images,labels_dict,mean=[0.485, 0
             category = labels_dict[cls-1]
             draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
             draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
-            draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
+            # draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
         image.save(path_to_output_image + str(cnt) + '.png')
         print(f'Output image is saved to {path_to_output_image}{cnt}.png')
         cnt += 1
