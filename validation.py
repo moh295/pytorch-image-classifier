@@ -285,7 +285,11 @@ def inference_and_save_mobilnet(model,save_dir,images,mean=[0.485, 0.456, 0.406]
     scale = 1
     prob_thresh = 0.7
     cnt = 1
+    start=timer()
     predictions = model(images)
+    end = timer()
+    elapsed = timedelta(seconds=end - start)
+    print(f'predction takes {elapsed}')
     path_to_output_image = save_dir
 
 
