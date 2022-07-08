@@ -363,9 +363,9 @@ def inference_and_save_mobilnet_full_data(model,save_dir,dataloder,labels_dict,m
             for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
                 color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
                 bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
-                print('catogory',cls)
+                # print('catogory',cls)
                 category = labels_dict[cls-1]
-                print('catogory', cls,category)
+                # print('catogory', cls,category)
                 draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
                 draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
                 # draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)

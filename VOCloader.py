@@ -105,7 +105,7 @@ class VOCDetection(_VOCBase):
             #  print('hand side', lb['handside'])
             # print(lb['name'])
             # print('label',lb['name'])
-            id=[i for i in range(1,len(labels_dict))]
+            id=[i for i in range(1,len(labels_dict)+1)]
             for i in range(len(labels_dict)):
                 if labels_dict[i]==lb['name']:
                     labels.append(id[i-1])
