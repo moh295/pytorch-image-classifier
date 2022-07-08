@@ -70,7 +70,7 @@ if __name__ == '__main__':
     for d in val_loader:
         images= d[0]
         break
-    print('tensor size',images.size())
+    print('tensor size',images)
 
 
     inference_and_save_mobilnet(model,'/App/data/',images)
