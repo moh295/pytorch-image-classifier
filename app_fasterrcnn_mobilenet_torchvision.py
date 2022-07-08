@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
 
     images = list(image.to(device) for image in images)
-    print('tensor size', images.size)
+    # print('tensor size', images.size)
     #
     # targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
