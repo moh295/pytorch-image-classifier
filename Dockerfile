@@ -7,5 +7,5 @@ WORKDIR /App
 # # end -- simple-classifier (v1)
 
 COPY . /App
-ENTRYPOINT ["python3","app_fasterrcnn_mobilenet_torchvision.py"]
-# ENTRYPOINT ["python3","app_fasterrcnn_mobilenet_training.py"]
+#ENTRYPOINT ["python3","app_fasterrcnn_mobilenet_torchvision.py"]
+ENTRYPOINT ["python3","app_fasterrcnn_mobilenet_training.py"]
