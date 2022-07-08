@@ -44,43 +44,16 @@ if __name__ == '__main__':
     batch_size=5
     input_size=320
     print('batch size',batch_size)
-    #train_loader, val_loader,classes =load_data(img_dir,input_size,batch_size,'train',True,0.7)
 
-    # train_loader, val_loader= pascal_voc_loder(batch_size,input_size)
-    # task = Segmentation, output columns: [image, dtype=uint8], [target,dtype=uint8].
     train_loader, trainval_loader, val_loader= dataloader()
 
 
     #trainging ....
 
-    #
     epochs=20
     print_freq=100
     stat_dic=obj_detcetion_training(model,epochs,train_loader,val_loader,print_freq)
     print('saving checkpoint to ',TORCH_TRAINED)
     torch.save(stat_dic, TORCH_TRAINED)
 
-    #converting...
-
-    # model.load_state_dict(torch.load(TORCH_TRAINED))
-    # x = [torch.rand(3, 300, 400).cuda(), torch.rand(3, 500, 400).cuda()]
-    # print('start predection')
-
-    #model_trt=start_converting(model,x,batch_size,TRT_TRAINED)
-    #model_trt=onnx_start_converting(model,x,batch_size,ONNX_TRAINED)
-
-
-
-    #validating .....
-    #trt_net=TRTModule()
-    #overall_check3(model, val_loader, batch_size)
-
-    # random_check(model,model_path,data,classes)
-    #overall_check(model,model_path,data,classes)
-    # each_class_check(model,model_path,data,classes)
-    # overall_check2(model_trt,val_loader,batch_size)
-    #overall_check2(model, val_loader, batch_size)
-
-    #trt_net.load_state_dict(torch.load(TRT_TRAINED))
-    #torch2trt_check (model_trt,model, data)
 

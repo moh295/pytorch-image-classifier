@@ -13,6 +13,10 @@ X6CZ8PzSc
 
 screen -dRaA -S torch
 
+Finished Training....duration : 12:26:33.447822
+saving checkpoint to  /App/data/torch_trained_fasterrcnn.pth
+
+
 eval $(ssh-agent);ssh-add /home/guillermo/.ssh/id_ed25519_new
 
 git pull ; docker build . -t simple-classifier-v2; docker run -it --privileged -v /media/workspace/hand_object_datasets:/App/data --shm-size 50G simple-classifier-v2
