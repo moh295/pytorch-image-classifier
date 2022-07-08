@@ -18,7 +18,8 @@ TRT_TRAINED='/App/data/trt_trained_fasterrcnn.pth'
 ONNX_TRAINED="/App/data/onxx_trained_fasterrcnn.onnx"
 
 img_dir = 'data/dogsandcats'
-
+#labels_dict=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','dog','chair','cow','diningtable','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
+labels_dict = ['hand','targetobject']
 
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -40,7 +41,7 @@ if __name__ == '__main__':
 
     #loading/checking data....
 
-    batch_size=30
+    batch_size=10
     input_size=320
     print('batch size',batch_size)
 
@@ -78,4 +79,4 @@ if __name__ == '__main__':
     # targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
 
-    inference_and_save_mobilnet(model,'/App/data/output/',images)
+    inference_and_save_mobilnet(model,'/App/data/output/',images,labels_dict)
