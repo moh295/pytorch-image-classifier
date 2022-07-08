@@ -13,8 +13,9 @@ X6CZ8PzSc
 
 screen -dRaA -S torch
 
-Finished Training....duration : 12:26:33.447822
-saving checkpoint to  /App/data/torch_trained_fasterrcnn.pth
+8k Finished Training....duration : 12:26:33.447822
+
+9995 images full prediction process takes 0:05:41.444221
 
 rm images.zip; zip -r images.zip output;aws s3 cp images.zip s3://systemimages;rm output/*.png
 
