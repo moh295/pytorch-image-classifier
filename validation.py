@@ -332,8 +332,8 @@ def inference_and_save_mobilnet_full_data(model,save_dir,dataloder,labels_dict,m
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
     start=timer()
-    for images ,target in dataloder:
-        images = list(image.to(device) for image in images)
+    for images in dataloder:
+        images = list(image.to(device) for image in images[0])
         print('prediction started')
         predictions = model(images)
         end = timer()
