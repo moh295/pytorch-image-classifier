@@ -44,7 +44,7 @@ if __name__ == '__main__':
     input_size=320
     print('batch size',batch_size)
 
-    train_loader, trainval_loader, val_loader= dataloader()
+    train_loader, trainval_loader, val_loader= dataloader(batch_size, input_size)
 
     # trainging ....
 
