@@ -68,9 +68,9 @@ if __name__ == '__main__':
 
     # validating .....
     for d in val_loader:
-        images= d[0]
+        images= d[0][0].to(device)
         break
-    print('tensor size',images)
+    print('tensor size',images.size)
 
 
     inference_and_save_mobilnet(model,'/App/data/',images)
