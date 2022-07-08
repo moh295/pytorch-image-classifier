@@ -331,42 +331,48 @@ def inference_and_save_mobilnet_full_data(model,save_dir,dataloder,labels_dict,m
     cnt = 1
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    start=timer()
+    start = timer()
     for images in dataloder:
+        start_pred = timer()
         images = list(image.to(device) for image in images[0])
         print('prediction started')
         predictions = model(images)
         end = timer()
-        elapsed = timedelta(seconds=end - start)
+        elapsed = timedelta(seconds=end - start_pred)
         print(f'prediction takes {elapsed}')
         path_to_output_image = save_dir
 
+        #
+        # for data, image in zip(predictions, images):
+        #     # print('result',data['scores'])
+        #
+        #     image=tensor_to_PIL(image,normlized=False)
+        #
+        #     detection_bboxes, detection_classes, detection_probs = data['boxes'].cpu().detach().numpy(), \
+        #                                                            data['labels'].cpu().detach().numpy(), data[
+        #                                                                'scores'].cpu().detach().numpy()
+        #     detection_bboxes /= scale
+        #     # print(detection_probs)
+        #     kept_indices = detection_probs > prob_thresh
+        #     detection_bboxes = detection_bboxes[kept_indices]
+        #     detection_classes = detection_classes[kept_indices]
+        #     detection_probs = detection_probs[kept_indices]
+        #     draw = ImageDraw.Draw(image)
+        #
+        #     for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
+        #         color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
+        #         bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
+        #         category = labels_dict[cls-1]
+        #         draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
+        #         draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
+        #         # draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
+        #     image.save(path_to_output_image + str(cnt) + '.png')
+        #     print(f'Output image is saved to {path_to_output_image}{cnt}.png')
+        #     cnt += 1
+        #     # image.show()
+        #
 
-        for data, image in zip(predictions, images):
-            # print('result',data['scores'])
-
-            image=tensor_to_PIL(image,normlized=False)
-
-            detection_bboxes, detection_classes, detection_probs = data['boxes'].cpu().detach().numpy(), \
-                                                                   data['labels'].cpu().detach().numpy(), data[
-                                                                       'scores'].cpu().detach().numpy()
-            detection_bboxes /= scale
-            # print(detection_probs)
-            kept_indices = detection_probs > prob_thresh
-            detection_bboxes = detection_bboxes[kept_indices]
-            detection_classes = detection_classes[kept_indices]
-            detection_probs = detection_probs[kept_indices]
-            draw = ImageDraw.Draw(image)
-
-            for bbox, cls, prob in zip(detection_bboxes.tolist(), detection_classes.tolist(), detection_probs.tolist()):
-                color = random.choice(['red', 'green', 'blue', 'yellow', 'purple', 'white'])
-                bbox = BBox(left=bbox[0], top=bbox[1], right=bbox[2], bottom=bbox[3])
-                category = labels_dict[cls-1]
-                draw.rectangle(((bbox.left, bbox.top), (bbox.right, bbox.bottom)), outline=color)
-                draw.text((bbox.left, bbox.top), text=f'{category:s} {prob:.3f}', fill=color)
-                # draw.text((bbox.left, bbox.top), text=f'{prob:.3f}', fill=color)
-            image.save(path_to_output_image + str(cnt) + '.png')
-            print(f'Output image is saved to {path_to_output_image}{cnt}.png')
-            cnt += 1
-            # image.show()
+    end = timer()
+    elapsed = timedelta(seconds=end)
+    print(f'full prediction process of {cnt-1} images, takes {elapsed}')
 
