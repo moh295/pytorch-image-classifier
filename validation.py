@@ -333,13 +333,13 @@ def inference_and_save_mobilnet_full_data(model,save_dir,dataloder,labels_dict,m
 
     start = timer()
     for images in dataloder:
-        start_pred = timer()
+        # start_pred = timer()
         images = list(image.to(device) for image in images[0])
-        print('prediction started')
+        # print('prediction started')
         predictions = model(images)
-        end = timer()
-        elapsed = timedelta(seconds=end - start_pred)
-        print(f'prediction takes {elapsed}')
+        # end = timer()
+        # elapsed = timedelta(seconds=end - start_pred)
+        # print(f'prediction takes {elapsed}')
         path_to_output_image = save_dir
 
 
@@ -353,7 +353,7 @@ def inference_and_save_mobilnet_full_data(model,save_dir,dataloder,labels_dict,m
                                                                        'scores'].cpu().detach().numpy()
             detection_bboxes /= scale
             # print(detection_probs)
-            print('detection_classes',detection_classes)
+            # print('detection_classes',detection_classes)
             kept_indices = detection_probs > prob_thresh
             detection_bboxes = detection_bboxes[kept_indices]
             detection_classes = detection_classes[kept_indices]

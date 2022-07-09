@@ -108,7 +108,7 @@ class VOCDetection(_VOCBase):
             id=[i for i in range(1,len(labels_dict)+1)]
             for i in range(len(labels_dict)):
                 if labels_dict[i]==lb['name']:
-                    labels.append(id[i-1])
+                    labels.append(id[i])
             if len(labels):
                 # print('pass',lb['name'])
                 pass

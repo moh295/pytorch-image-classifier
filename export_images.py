@@ -13,8 +13,8 @@ def extractImages(pathIn, pathOut):
         print ('Read a new frame: ', success)
 
         try:
-            resized = resize(image, 500, 375)
-            cv2.imwrite( pathOut + "\\frame%d.ppm" % count, resized)     # save frame as JPEG file
+            # resized = resize(image, 500, 375)
+            cv2.imwrite( pathOut + "\\frame%d.png" % count, image)     # save frame as JPEG file
             count = count + 1
         except:pass
 
@@ -28,8 +28,8 @@ def resize(src,w,h):
 
 if __name__=="__main__":
 
-    video_path='C:/Users/mom44/Google Drive (mohammed@clearimageai.com)/projects/4-loss-prevention/media/raw_videos/input.mp4'
-    image_folder='data/sampleFasterRCNN/faster-rcnn'
+    video_path='data/input.mp4'
+    image_folder='data/self-checkout-images/'
     a = argparse.ArgumentParser()
     a.add_argument("--pathIn", help="path to video",default=video_path)
     a.add_argument("--pathOut", help="path to images",default=image_folder)
